@@ -66,7 +66,7 @@
     <div class="container">
         <h1>Event Management Form</h1>
 <!--        <form id="eventForm" action="submit_event.php" method="POST">-->
-            <form id="eventForm" action="#" method="POST">
+            <form id="eventForm" action="display.html" method="POST">
             <div>
                 <label for="eventName">Event Name <span>(100 characters max)</span></label><br>
                 <input type="text" id="eventName" name="eventName" maxlength="100" required>
@@ -81,13 +81,22 @@
             </div>
             <div>
                 <label for="requiredSkills">Required Skills</label><br>
-                <select id="requiredSkills" name="requiredSkills[]" multiple required>
-                    <option value="Skill 1">Environmental Awareness</option>
-                    <option value="Skill 2">Physical Fitness</option>
-                    <option value="Skill 3">Teamwork</option>
-                    <option value="Skill 4">Event Planning</option>
-                    <option value="Skill 5">Public Speaking</option>
-                    <option value="Skill 6">First Aid</option>
+                <select id="requiredSkills" name="requiredSkills" multiple="multiple" required>
+                    <option value="Environmental Awareness">Environmental Awareness</option>
+                    <option value="Physical Fitness">Physical Fitness</option>
+                    <option value="Teamwork">Teamwork</option>
+                    <option value="Event Planning">Event Planning</option>
+                    <option value="Public Speaking">Public Speaking</option>
+                    <option value="Organization">Organization</option>
+                    <option value="Customer Service">Customer Service</option>
+                    <option value="Lifting">Lifting</option>
+                    <option value="Patience">Patience</option>
+                    <option value="Communication">Communication</option>
+                    <option value="Mentoring">Mentoring</option>
+                    <option value="Conflict Resolution">Conflict Resolution</option>
+                    <option value="Creativity">Creativity</option>
+                    <option value="Customer Service">Customer Service</option>
+
 
                     <!-- Add more options as needed -->
                 </select>
@@ -108,5 +117,17 @@
             <button type="submit">Submit Event</button>
         </form>
     </div>
+    <script>
+        document.getElementById('eventForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Serialize form data into a URL-encoded string
+            const formData = new URLSearchParams(new FormData(event.target).entries());
+
+            // Redirect to display.html with the form data as query parameters
+            window.location.href = 'display.html?' + formData.toString();
+        });
+    </script>
 </body>
 </html>

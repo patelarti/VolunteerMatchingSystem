@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Event Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: hsl(295, 14%, 53%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .event-detail {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Event Details</h1>
+        <div class="event-detail">
+            <strong>Event Name:</strong> <span id="eventName"></span>
+        </div>
+        <div class="event-detail">
+            <strong>Event Description:</strong> <span id="eventDescription"></span>
+        </div>
+        <div class="event-detail">
+            <strong>Location:</strong> <span id="location"></span>
+        </div>
+        <div class="event-detail">
+            <strong>Required Skills:</strong> <span id="requiredSkills"></span>
+        </div>
+        <div class="event-detail">
+            <strong>Urgency:</strong> <span id="urgency"></span>
+        </div>
+        <div class="event-detail">
+            <strong>Event Date:</strong> <span id="eventDate"></span>
+        </div>
+    </div>
+
+    <script>
+        // Function to parse URL parameters
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        // Function to get all parameters with the same name
+        function getAllParametersByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)', 'g'),
+                results, values = [];
+            while ((results = regex.exec(url)) !== null) {
+                if (results[2]) values.push(decodeURIComponent(results[2].replace(/\+/g, ' ')));
+            }
+            return values;
+        }
+
+
+        // Retrieve and display form data from URL parameters
+        document.getElementById('eventName').textContent = getParameterByName('eventName');
+        document.getElementById('eventDescription').textContent = getParameterByName('eventDescription');
+        document.getElementById('location').textContent = getParameterByName('location');
+        document.getElementById('urgency').textContent = getParameterByName('urgency');
+        document.getElementById('eventDate').textContent = getParameterByName('eventDate');
+        const requiredSkills = getAllParametersByName('requiredSkills');
+        document.getElementById('requiredSkills').textContent = requiredSkills.length ? requiredSkills.join(', ') : 'None';
+        console.log(requiredSkills);
+
+    </script>
+</body>
+</html>
