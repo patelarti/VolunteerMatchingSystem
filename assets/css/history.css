@@ -1,0 +1,72 @@
+.history-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Two columns of different widths */
+    gap: 20px; /* Space between columns */
+    background-color: white; /* Set background to white */
+    border-radius: 10px; /* Adjust the radius for your desired roundness */
+    padding: 50px; /* Add padding for content spacing */
+    position: relative; /* Important for positioning the bar */
+    width: 80%; /* Adjust width as needed */
+    margin: 0 auto; /* Center the box horizontally */
+    box-shadow: 0 22px 20px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.volunteer-list-title, .volunteer-info-title, .history-title {
+    font-size: var(--h2-font-size);
+    margin-bottom: 10px;
+}
+
+#volunteer-list {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+}
+
+.volunteer-list {
+    border: 1px solid;
+    overflow-wrap: break-word;
+    max-height: 300px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#volunteer-list li {
+    margin-bottom: 10px; /* Add space between list items */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    cursor: pointer; /* Make the list items clickable */
+}
+
+.volunteer-info {
+    border: 1px solid;
+    border-radius: 2px;
+    padding: 15px;
+}
+
+#info-content p {
+    margin: 5px 0;
+}
+
+#volunteer-list li.selected {
+    background-color: #d3d3d3; /* Light gray background for highlighting */
+    border: 2px solid #007bff; /* Blue border for highlighting */
+}
+
+.history-table-container {
+    grid-column: 1 / span 2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}

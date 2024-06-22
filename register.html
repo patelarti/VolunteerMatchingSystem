@@ -10,7 +10,7 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>We Love Volunteering - Bedimcode</title>
+    <title>Register - We Love Volunteering</title>
 </head>
 <body>
     <div class="theme-toggle">
@@ -26,14 +26,14 @@
                 <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
             </div>
             <div class="image-container">
-                <img src="assets/img/vol7.png" alt="login image" class="login__img">
-                <form action="base.html" class="login__form" id="login-form">
+                <img src="assets/img/vol7.png" alt="register image" class="login__img">
+                <form action="" class="login__form">
                     <div>
                         <h1 class="login__title">
-                            <span>Welcome</span> Back
+                            Register
                         </h1>
                         <p class="login__description">
-                            Welcome! Please login to continue.
+                            Create your account. It's free and only takes a minute.
                         </p>
                     </div>
                     
@@ -43,30 +43,28 @@
                                 <label for="input-email" class="login__label">Email</label>
                                 <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email">
                             </div>
-
                             <div>
                                 <label for="input-pass" class="login__label">Password</label>
-
                                 <div class="login__box">
                                     <input type="password" placeholder="Enter your password" required class="login__input" id="input-pass">
                                     <i class="ri-eye-off-line login__eye" id="input-icon"></i>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="login__check">
-                            <input type="checkbox" class="login__check-input" id="input-check">
-                            <label for="input-check" class="login__check-label">Remember me</label>
+                            <div>
+                                <label for="input-confirm-pass" class="login__label">Confirm Password</label>
+                                <div class="login__box">
+                                    <input type="password" placeholder="Confirm your password" required class="login__input" id="input-confirm-pass">
+                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div>
                         <div class="login__buttons">
-                            <button type="submit" class="login__button">Log In</button>
-                            <a href="register.html" class="login__button login__button-ghost">Sign Up</a>
+                            <button type="submit" class="login__button">Sign Up</button>
+                            <a href="index.html" class="login__button login__button-ghost">Back to Login</a>
                         </div>
-
-                        <a href="forgot.html" class="login__forgot">Forgot Password?</a>
                     </div>
                 </form>
             </div>

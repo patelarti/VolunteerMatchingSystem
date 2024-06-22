@@ -1,0 +1,94 @@
+.matching-form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns of equal width */
+  grid-template-rows: auto auto; /* Rows adjust to content size */
+  gap: 20px; /* Space between columns */
+  background-color: white; /* Set background to white */
+  border-radius: 10px; /* Adjust the radius for your desired roundness */
+  padding: 50px; /* Add padding for content spacing */
+  position: relative; /* Important for positioning the bar */
+  width: 80%; /* Adjust width as needed */
+  margin: 0 auto; /* Center the box horizontally */
+  box-shadow: 0 22px 20px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.matching-form-container::before {
+  content: '';
+  position: absolute;
+  left: 50%; /* Adjust the position from the left edge */
+  top: 0;
+  height: 100%;
+  width: 2px; /* Adjust the width of the bar */
+  background-color: black;
+}
+
+.volunteer-list-title, .volunteer-info-title, .event-info-title {
+  font-size: var(--h2-font-size);
+  margin-bottom: 10px;
+}
+
+#volunteer-list, #event-list {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+}
+
+.volunteer-list, .event-info {
+  border: 1px solid;
+  overflow-wrap: break-word;
+  max-height: 300px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.eventInformation{
+  border: 1px solid;
+  grid-row: 2;
+  grid-column: 2;
+  overflow-wrap: break-word;
+  max-height: 300px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+
+}
+
+#volunteer-list li, #event-list li {
+  margin-bottom: 10px; /* Add space between list items */
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  cursor: pointer; /* Make the list items clickable */
+}
+
+.volunteer-info {
+  border: 1px solid;
+  border-radius: 2px;
+  max-height: 300px; /* Set a maximum height */
+
+  overflow-y: auto; /* Enable vertical scrolling */
+
+}
+
+#info-content p {
+  margin: 5px 0;
+}
+
+#volunteer-list li.selected, #event-list li.selected {
+  background-color: #d3d3d3; /* Light gray background for highlighting */
+  border: 2px solid #007bff; /* Blue border for highlighting */
+}
+
+.button-container {
+  grid-column: 2;
+  display: flex;
+  margin-top: 10px;
+}
+
+.info-button {
+  width: 45%;
+  padding: 10px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--first-color), var(--second-color));
+  color: #fff;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  cursor: pointer;
+  text-align: center;
+}

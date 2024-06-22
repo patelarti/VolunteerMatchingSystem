@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/volunteer.css">
+
+    <title>Volunteer Matching</title>
+</head>
+<body>
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider round"></span>
+        </label>
+        <span id="theme-label">Dark Mode</span>
+    </div>
+   
+    <div class="matching-form-container">
+        <div class="volunteer-list">
+            <h2 class="volunteer-list-title">Volunteer List</h2>
+            <ul id="volunteer-list"></ul>
+        </div>
+      
+        <div class="volunteer-info" id="volunteer-info">
+            <h2 class="volunteer-info-title">Volunteer Info</h2>
+            <div id="info-content"></div>
+        </div>
+           
+        <div class="event-info" id="event-info">
+            <h2 class="event-info-title">Event List</h2>
+            <ul id="event-list"></ul>
+        </div>
+
+        <div class="eventInformation" id="event-info">
+            <h2 class="event-info-title">Event Info</h2>
+            <ul id="event-content"></ul>
+        </div>
+
+        <div class="button-container">
+            <button class="info-button" onclick="assignEvent()">Assign Event</button>
+        </div>
+       
+    
+    </div>
+
+    <script src="assets/js/volunteerlist.js"></script>
+</body>
+</html>
