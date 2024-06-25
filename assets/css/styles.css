@@ -511,3 +511,43 @@ input:checked + .slider:before {
     border-radius: 1rem;
     width: 700px; /* Adjust the width to make the box bigger */
 }
+
+.event_details {
+    position: absolute;
+    right: 287px;
+    top: 172px;
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid hsla(244, 16%, 92%, 0.75);
+    margin-inline: 1.5rem;
+    row-gap: 1.25rem;
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 600px; /* Adjust the width to make the box bigger */
+
+}
+
+.display_table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+}
+
+
