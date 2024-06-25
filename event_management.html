@@ -1,133 +1,261 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Event Management Form</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            margin: 0;-->
+<!--            background-color: hsl(295, 14%, 53%);-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        form {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        label {-->
+<!--            margin-bottom: 8px;-->
+<!--        }-->
+
+<!--        input, textarea, select {-->
+<!--            width: 100%;-->
+<!--            padding: 8px;-->
+<!--            margin-bottom: 16px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 4px;-->
+<!--            box-sizing: border-box;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        button[type="submit"] {-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            padding: 10px 20px;-->
+<!--            cursor: pointer;-->
+<!--            border-radius: 4px;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        button[type="submit"]:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Event Management Form</h1>-->
+<!--&lt;!&ndash;        <form id="eventForm" action="submit_event.php" method="POST">&ndash;&gt;-->
+<!--            <form id="eventForm" action="display.html" method="POST">-->
+<!--            <div>-->
+<!--                <label for="eventName">Event Name <span>(100 characters max)</span></label><br>-->
+<!--                <input type="text" id="eventName" name="eventName" maxlength="100" required>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="eventDescription">Event Description</label><br>-->
+<!--                <textarea id="eventDescription" name="eventDescription" rows="4" required></textarea>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="location">Location</label><br>-->
+<!--                <textarea id="location" name="location" rows="2" required></textarea>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="requiredSkills">Required Skills</label><br>-->
+<!--                <select id="requiredSkills" name="requiredSkills" multiple="multiple" required>-->
+<!--                    <option value="Environmental Awareness">Environmental Awareness</option>-->
+<!--                    <option value="Physical Fitness">Physical Fitness</option>-->
+<!--                    <option value="Teamwork">Teamwork</option>-->
+<!--                    <option value="Event Planning">Event Planning</option>-->
+<!--                    <option value="Public Speaking">Public Speaking</option>-->
+<!--                    <option value="Organization">Organization</option>-->
+<!--                    <option value="Customer Service">Customer Service</option>-->
+<!--                    <option value="Lifting">Lifting</option>-->
+<!--                    <option value="Patience">Patience</option>-->
+<!--                    <option value="Communication">Communication</option>-->
+<!--                    <option value="Mentoring">Mentoring</option>-->
+<!--                    <option value="Conflict Resolution">Conflict Resolution</option>-->
+<!--                    <option value="Creativity">Creativity</option>-->
+<!--                    <option value="Customer Service">Customer Service</option>-->
+
+
+<!--                    &lt;!&ndash; Add more options as needed &ndash;&gt;-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="urgency">Urgency</label><br>-->
+<!--                <select id="urgency" name="urgency" required>-->
+<!--                    <option value="">Select urgency</option>-->
+<!--                    <option value="High">High</option>-->
+<!--                    <option value="Medium">Medium</option>-->
+<!--                    <option value="Low">Low</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="eventDate">Event Date</label><br>-->
+<!--                <input type="date" id="eventDate" name="eventDate" required>-->
+<!--            </div>-->
+<!--            <button type="submit">Submit Event</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    <script>-->
+<!--        document.getElementById('eventForm').addEventListener('submit', function(event) {-->
+<!--            // Prevent the default form submission-->
+<!--            event.preventDefault();-->
+
+<!--            // Serialize form data into a URL-encoded string-->
+<!--            const formData = new URLSearchParams(new FormData(event.target).entries());-->
+
+<!--            // Redirect to display.html with the form data as query parameters-->
+<!--            window.location.href = 'display.html?' + formData.toString();-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: hsl(295, 14%, 53%);
-        }
 
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-        }
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-        h1 {
-            text-align: center;
-        }
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 8px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Register - We Love Volunteering</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Event Management Form</h1>
-<!--        <form id="eventForm" action="submit_event.php" method="POST">-->
-            <form id="eventForm" action="display.html" method="POST">
-            <div>
-                <label for="eventName">Event Name <span>(100 characters max)</span></label><br>
-                <input type="text" id="eventName" name="eventName" maxlength="100" required>
-            </div>
-            <div>
-                <label for="eventDescription">Event Description</label><br>
-                <textarea id="eventDescription" name="eventDescription" rows="4" required></textarea>
-            </div>
-            <div>
-                <label for="location">Location</label><br>
-                <textarea id="location" name="location" rows="2" required></textarea>
-            </div>
-            <div>
-                <label for="requiredSkills">Required Skills</label><br>
-                <select id="requiredSkills" name="requiredSkills" multiple="multiple" required>
-                    <option value="Environmental Awareness">Environmental Awareness</option>
-                    <option value="Physical Fitness">Physical Fitness</option>
-                    <option value="Teamwork">Teamwork</option>
-                    <option value="Event Planning">Event Planning</option>
-                    <option value="Public Speaking">Public Speaking</option>
-                    <option value="Organization">Organization</option>
-                    <option value="Customer Service">Customer Service</option>
-                    <option value="Lifting">Lifting</option>
-                    <option value="Patience">Patience</option>
-                    <option value="Communication">Communication</option>
-                    <option value="Mentoring">Mentoring</option>
-                    <option value="Conflict Resolution">Conflict Resolution</option>
-                    <option value="Creativity">Creativity</option>
-                    <option value="Customer Service">Customer Service</option>
-
-
-                    <!-- Add more options as needed -->
-                </select>
-            </div>
-            <div>
-                <label for="urgency">Urgency</label><br>
-                <select id="urgency" name="urgency" required>
-                    <option value="">Select urgency</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                </select>
-            </div>
-            <div>
-                <label for="eventDate">Event Date</label><br>
-                <input type="date" id="eventDate" name="eventDate" required>
-            </div>
-            <button type="submit">Submit Event</button>
-        </form>
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider round"></span>
+        </label>
+        <span id="theme-label">Dark Mode</span>
     </div>
+    <div class="container">
+        <div class="login__content">
+            <div class="title-container">
+                <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
+            </div>
+<!--            <div class="image-container">-->
+<!--                <img src="assets/img/vol7.png" alt="register image" class="login__img">-->
+                <form id="eventForm" action="display.html" class="event__form " method="POST">
+                    <div>
+                        <h1 class="login__title">
+                            Event Management Form
+                        </h1>
+<!--                        <p class="login__description">-->
+<!--                            Create your account. It's free and only takes a minute.-->
+<!--                        </p>-->
+                    </div>
+
+                    <div>
+                        <div class="login__inputs">
+<!--                            <div>-->
+<!--                                <label for="input-email" class="login__label">Email</label>-->
+<!--                                <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email">-->
+<!--                            </div>-->
+                            <div>
+                                <label for="eventName" class="login__label">Event Name <span>(100 characters max)</span></label>
+                                <input type="text" id="eventName" name="eventName" maxlength="100" class="login__input" required>
+                            </div>
+                            <div>
+                                <label for="eventDescription"  class="login__label">Event Description</label>
+                                <textarea id="eventDescription" name="eventDescription" rows="4" class="login__input" required></textarea>
+                            </div>
+                            <div>
+                                <label for="location"  class="login__label">Location</label>
+                                <textarea id="location" name="location" rows="1" class="login__input" required></textarea>
+                            </div>
+                            <div>
+                                <label for="requiredSkills" class="login__label">Required Skills</label>
+                                <select id="requiredSkills" name="requiredSkills" multiple="multiple" class="login__input" required>
+                                    <option value="Environmental Awareness">Environmental Awareness</option>
+                                    <option value="Physical Fitness">Physical Fitness</option>
+                                    <option value="Teamwork">Teamwork</option>
+                                    <option value="Event Planning">Event Planning</option>
+                                    <option value="Public Speaking">Public Speaking</option>
+                                    <option value="Organization">Organization</option>
+                                    <option value="Customer Service">Customer Service</option>
+                                    <option value="Lifting">Lifting</option>
+                                    <option value="Patience">Patience</option>
+                                    <option value="Communication">Communication</option>
+                                    <option value="Mentoring">Mentoring</option>
+                                    <option value="Conflict Resolution">Conflict Resolution</option>
+                                    <option value="Creativity">Creativity</option>
+                                    <option value="Customer Service">Customer Service</option>
+
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div>
+                                <label for="urgency" class="login__label">Urgency</label>
+                                <select id="urgency" name="urgency" class="login__input" required>
+                                    <option value="">Select urgency</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="eventDate" class="login__label">Event Date</label>
+                                <input type="date" id="eventDate" name="eventDate" class="login__input" required>
+                            </div><br/>
+                            <div>
+                                <div class="login__buttons">
+                                    <button type="submit" class="login__button">Submit Event</button>
+<!--                                    <a href="index.html" class="login__button login__button-ghost">Back to Login</a>-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+<!--            </div>-->
+        </div>
+    </div>
+
+    <!--=============== MAIN JS ===============-->
+<!--    <script src="assets/js/main.js"></script>-->
     <script>
-        document.getElementById('eventForm').addEventListener('submit', function(event) {
-            // Prevent the default form submission
-            event.preventDefault();
+            document.getElementById('eventForm').addEventListener('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
 
-            // Serialize form data into a URL-encoded string
-            const formData = new URLSearchParams(new FormData(event.target).entries());
+                // Serialize form data into a URL-encoded string
+                const formData = new URLSearchParams(new FormData(event.target).entries());
 
-            // Redirect to display.html with the form data as query parameters
-            window.location.href = 'display.html?' + formData.toString();
-        });
+                // Redirect to display.html with the form data as query parameters
+                window.location.href = 'display.html?' + formData.toString();
+            });
     </script>
+
 </body>
 </html>
