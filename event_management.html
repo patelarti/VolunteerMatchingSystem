@@ -25,24 +25,18 @@
             <div class="title-container">
                 <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
             </div>
-<!--            <div class="image-container">-->
-<!--                <img src="assets/img/vol7.png" alt="register image" class="login__img">-->
+
                 <form id="eventForm" action="display.html" class="event__form " method="POST">
                     <div>
                         <h1 class="login__title">
                             Event Management Form
                         </h1>
-<!--                        <p class="login__description">-->
-<!--                            Create your account. It's free and only takes a minute.-->
-<!--                        </p>-->
+
                     </div>
 
                     <div>
                         <div class="login__inputs">
-<!--                            <div>-->
-<!--                                <label for="input-email" class="login__label">Email</label>-->
-<!--                                <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email">-->
-<!--                            </div>-->
+
                             <div>
                                 <label for="eventName" class="login__label">Event Name <span>(100 characters max)</span></label>
                                 <input type="text" id="eventName" name="eventName" maxlength="100" class="login__input" required>
@@ -73,7 +67,6 @@
                                     <option value="Creativity">Creativity</option>
                                     <option value="Customer Service">Customer Service</option>
 
-
                                     <!-- Add more options as needed -->
                                 </select>
                             </div>
@@ -93,7 +86,6 @@
                             <div>
                                 <div class="login__buttons">
                                     <button type="submit" class="login__button">Submit Event</button>
-<!--                                    <a href="index.html" class="login__button login__button-ghost">Back to Login</a>-->
                                 </div>
                             </div>
 
@@ -101,12 +93,9 @@
                     </div>
 
                 </form>
-<!--            </div>-->
         </div>
     </div>
 
-    <!--=============== MAIN JS ===============-->
-<!--    <script src="assets/js/main.js"></script>-->
     <script>
             document.getElementById('eventForm').addEventListener('submit', function(event) {
                 // Prevent the default form submission

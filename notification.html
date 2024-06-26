@@ -4,101 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Notifications</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: hsl(295, 14%, 53%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
 
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .event-detail {
-            margin-bottom: 10px;
-        }
-
-        .alert {
-          padding: 20px;
-          background-color: #04AA6D;
-          color: white;
-          opacity: 1;
-          transition: opacity 0.6s;
-          margin-bottom: 15px;
-        }
-
-        .alert.success {background-color: #04AA6D;}
-        .alert.info {background-color: #04AA6D;}
-        .alert.warning {background-color: #04AA6D;}
-
-        .closebtn {
-          margin-left: 15px;
-          color: white;
-          font-weight: bold;
-          float: right;
-          font-size: 22px;
-          line-height: 20px;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-
-        .closebtn:hover {
-          color: black;
-        }
-    </style>
+    <title>Event Details</title>
 </head>
+
 <body>
-
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider round"></span>
+        </label>
+        <span id="theme-label">Dark Mode</span>
+    </div>
     <div class="container">
-        <h1>New Notifications</h1>
-        <p>Click on the "x" symbol to close the alert message.</p>
-        <div class="alert">
-          <span class="closebtn">&times;</span>
-          You have a new message
-        </div>
+        <div class="login__content">
+            <div class="title-container">
+                <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
+            </div>
+            <div class="event_details">
+                <h2>Your Notifications</h2>
 
-        <div class="alert success">
-          <span class="closebtn">&times;</span>
-<!--            <strong>Success!</strong> Volunteer matched successfully-->
-          Volunteer matched successfully
-        </div>
+                <table class="notification_table">
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            You have a new message
+                        </div>
 
-        <div class="alert info">
-          <span class="closebtn">&times;</span>
-          Your event was approved.
-        </div>
+                    </tr>
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                              Volunteer matched successfully
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Your event was approved.
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Indicates a warning that might need attention.
+                        </div>
 
-        <div class="alert warning">
-          <span class="closebtn">&times;</span>
-          Indicates a warning that might need attention.
-        </div>
+                    </tr>
 
-        <div class="alert info">
-          <span class="closebtn">&times;</span>
-          Your event was approved.
-        </div>
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Your event was approved.
+                        </div>
 
-        <div class="alert warning">
-          <span class="closebtn">&times;</span>
-          Indicates a warning that might need attention.
-        </div>
+                    </tr>
 
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Indicates a warning that might need attention.
+                        </div>
+
+                    </tr>
+
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Your event was approved.
+                        </div>
+
+                    </tr>
+
+                    <tr>
+                        <div class="alert"><span class="closebtn">&times;</span>
+                            Indicates a warning that might need attention.
+                        </div>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -114,5 +99,7 @@
         }
 
     </script>
+
 </body>
 </html>
+

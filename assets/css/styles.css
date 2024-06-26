@@ -497,10 +497,9 @@ input:checked + .slider:before {
 }
 }
 
-
 .event__form {
     position: absolute;
-    right: 200px;
+    right: 272px;
     top: 30px;
     background-color: rgba(255,255,255,0.5);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
@@ -515,8 +514,8 @@ input:checked + .slider:before {
 .event_details {
     position: absolute;
     right: 287px;
-    top: 172px;
-    background-color: rgba(255,255,255,0.5);
+    top: 152px;
+    background-color: rgba(255,255,255,0.6);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
     margin-inline: 1.5rem;
     row-gap: 1.25rem;
@@ -550,4 +549,34 @@ tr:nth-child(even) {
 }
 }
 
+
+.notification_table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.alert {
+      padding: 20px;
+      background-color: aliceblue;
+      color: black;
+      opacity: 1;
+      transition: opacity 0.6s;
+      margin-bottom: 15px;
+}
+
+.closebtn {
+          margin-left: 15px;
+          color: black;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+.closebtn:hover {
+          color: black;
+        }
 
