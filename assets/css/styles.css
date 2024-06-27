@@ -696,7 +696,7 @@ input:checked + .slider:before {
 .event__form {
     position: absolute;
     right: 272px;
-    top: 3px;
+    top: 120px;
     background-color: rgba(255,255,255,0.5);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
     margin-inline: 1.5rem;
@@ -710,7 +710,7 @@ input:checked + .slider:before {
 .event_details {
     position: absolute;
     right: 287px;
-    top: 3px;
+    top: 120px;
     background-color: rgba(255,255,255,0.6);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
     margin-inline: 1.5rem;
