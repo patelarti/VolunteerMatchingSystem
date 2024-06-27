@@ -3,7 +3,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to flex-start to align header properly */
   background-color: var(--body-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
@@ -75,26 +75,98 @@ input:checked + .slider:before {
 #theme-label {
   margin-left: 10px;
 }
-
-.matching-form-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 40px;
-  width: 100%;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
   max-width: 1200px;
+  height: 100vh;
+}
+
+.content {
+  margin-top: 50px;
+  padding: 0 20px;
 }
 
 
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 40px);
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--title-color);
+}
 
+.header h2 {
+  font-size: 1.5rem;
+  color: var(--title-color);
+}
 
+.header-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-link {
+  color: var(--title-color);
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.icon-link i {
+  margin-left: 8px; /* Space between text and icon */
+}
+
+.icon-link:hover {
+  color: var(--first-color);
+}
+
+.matching-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  max-width: 1200px;
+  padding: 5px;
+}
+
+.volunteer-section, .event-section {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.volunteer-section {
+  background-color: #f0f4ff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-section {
+  background-color: #fff7f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .volunteer-list, .volunteer-info, .event-info, .eventInformation {
+  flex: 1;
   background-color: var(--container-bg-color, #ffffff);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, box-shadow 0.3s;
+  margin:5px;
 }
 
 .volunteer-list-title, .volunteer-info-title, .event-info-title {
@@ -126,7 +198,7 @@ input:checked + .slider:before {
 }
 
 .button-container {
-  grid-column: span 4;
+  width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 20px;

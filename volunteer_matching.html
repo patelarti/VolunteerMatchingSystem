@@ -13,42 +13,53 @@
 
     <title>Volunteer Matching</title>
 </head>
+
+
+
 <body>
-    <div class="theme-toggle">
-        <label class="switch">
-            <input type="checkbox" id="theme-switch">
-            <span class="slider round"></span>
-        </label>
-        <span id="theme-label">Dark Mode</span>
-    </div>
-   
-    <div class="matching-form-container">
-
-        
-            <div class="volunteer-list">
-                <h2 class="volunteer-list-title">Volunteer List</h2>
-                <ul id="volunteer-list" class="list"></ul>
+    <div class="container">
+        <div class="header">
+            <h2>Welcome, <span id="username">Rahma</span></h2>
+            <div class="header-icons">
+                <a href="base.html" class="icon-link">Dashboard <i class="ri-dashboard-line"></i></a>
+                <a href="profile.html" class="icon-link">Profile <i class="ri-user-line"></i></a>
+                <a href="notification.html" class="icon-link">Notification <i class="ri-user-line"></i></a>
             </div>
-        
-            <div class="volunteer-info" id="volunteer-info">
-                <h2 class="volunteer-info-title">Volunteer Info</h2>
-                <div id="info-content" class="info-content"></div>
-            </div>
-            
-            <div class="event-info" id="event-info">
-                <h2 class="event-info-title">Event List</h2>
-                <ul id="event-list" class="list"></ul>
-            </div>
-
-            <div class="eventInformation" id="event-information">
-                <h2 class="event-info-title">Event Info</h2>
-                <ul id="event-content" class="info-content"></ul>
-            </div>
-
-        <div class="button-container">
-            <button class="info-button" onclick="assignEvent()">Assign Event</button>
         </div>
+        <div class="content">
+            <div class="matching-form-container">
+                <div class="volunteer-section">
+                    <div class="volunteer-list">
+                        <h2 class="volunteer-list-title">Volunteer List</h2>
+                        <ul id="volunteer-list" class="list"></ul>
+                    </div>
+                    <div class="volunteer-info" id="volunteer-info">
+                        <h2 class="volunteer-info-title">Volunteer Info</h2>
+                        <div id="info-content" class="info-content"></div>
+                    </div>
+                </div>
+    
+                <div class="event-section">
+                    <div class="event-info" id="event-info">
+                        <h2 class="event-info-title">Event List</h2>
+                        <ul id="event-list" class="list"></ul>
+                    </div>
+                    <div class="eventInformation" id="event-information">
+                        <h2 class="event-info-title">Event Info</h2>
+                        <ul id="event-content" class="info-content"></ul>
+                    </div>
+                </div>
+    
+                <div class="button-container">
+                    <button class="info-button" onclick="assignEvent()">Assign Event</button>
+                </div>
+            </div>
+
+        </div>
+
     </div>
+
+
 
     <script src="assets/js/volunteerlist.js"></script>
 </body>
