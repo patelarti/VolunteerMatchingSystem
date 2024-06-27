@@ -9,7 +9,7 @@
   --second-color: hsl(249, 64%, 47%);
   --title-color: hsl(171, 11%, 12%);
   --text-color: hsl(244, 4%, 36%);
-  --body-color: hsl(295, 14%, 53%);
+  --body-color: hsl(295, 22%, 80%);
   --titre-color: hsl(0, 0%, 100%);
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
@@ -118,27 +118,46 @@ body.dark-mode {
 
 .content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: calc(100vh - 900px); /* Adjust height to account for header and footer */
-  margin-top: 0px; /* Adjust to center correctly */
-  padding: 0 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: calc(100vh - 100px); /* Adjust height to account for header and footer */
+  padding: 50px;
+  width: 100%; /* Make container take full width */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.button-column, .image-column {
+.title-container {
+  flex: 0 0 200px; /* Fixed width for the title container */
+  padding-right: 20px; /* Space between title and form */
+}
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.button-column {
   flex: 1;
   display: flex;
-  align-items: left;
+  align-items: flex-start; /* Align items to the top */
   justify-content: left;
+  margin-top: 100px; /* Added margin-top to push the button column lower */
+}
+
+.image-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px; /* Added margin-top to push the image column lower */
 }
 
 .button-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 70px;
 }
-
 .dashboard-button {
   padding: 15px 50px;
   font-size: 1.25rem;
@@ -169,6 +188,134 @@ body.dark-mode {
   width: 1300px;
   border-radius: 50px;
   box-shadow: 10 24px 24px rgba(0, 0, 0, 0.1);
+}
+
+
+/* profile part */
+
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 40px);
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--title-color);
+}
+
+#username {
+  color: var(--first-color);
+  font-weight: var(--font-semi-bold);
+}
+
+.header-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-link {
+  color: var(--title-color);
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.icon-link i {
+  margin-left: 8px; /* Space between text and icon */
+}
+
+.icon-link:hover {
+  color: var(--first-color);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 100px); /* Adjust height to account for header and footer */
+  padding: 50px;
+  width: 100%; /* Make container take full width */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.profile-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.profile-form {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  gap: 20px;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid var(--text-color);
+  border-radius: 6px;
+  background-color: hsla(244, 16%, 92%, 0.6);
+  transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--first-color);
+}
+
+.submit-button {
+  padding: 15px;
+  font-size: 1.25rem;
+  color: #fff;
+  background: linear-gradient(180deg, var(--first-color), var(--second-color));
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background: linear-gradient(180deg, var(--second-color), var(--first-color));
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer {
