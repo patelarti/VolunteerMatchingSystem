@@ -92,28 +92,76 @@ body.dark-mode {
 .icon-link:hover {
   color: var(--first-color);
 }
-.notification {
+
+.content {
+  margin-top: 100px;
+  padding: 0 20px;
+}
+
+.title-column {
+  flex: 0 0 200px; /* Fixed width for the title container */
+  padding-right: 20px; /* Space between title and form */
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--title-color);
+  margin-bottom: 20px;
+}
+
+.notification-column {
+  flex: 1; /* Take the remaining width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notification-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.notification-list .alert {
+  display: block;
+  width: 100%;
+  padding: 20px;
   background-color: #555;
   color: white;
-  text-decoration: none;
-  padding: 15px 26px;
-  position: relative;
-  display: inline-block;
   border-radius: 2px;
+  position: relative;
+  font-size: 1.1rem;
 }
 
-.notification:hover {
-  background: red;
-}
-
-.notification .badge {
+.notification-list .alert .closebtn {
   position: absolute;
-  top: -10px;
-  right: -10px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  background: red;
+  top: 5px;
+  right: 10px;
   color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.notification-list .alert .closebtn:hover {
+  color: red;
+}
+
+.show-more-btn {
+  margin: 20px 0;
+  padding: 10px 20px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.show-more-btn:hover {
+  background-color: #0b7dda;
 }
 
 .content {
@@ -126,15 +174,7 @@ body.dark-mode {
   box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-.title-container {
-  flex: 0 0 200px; /* Fixed width for the title container */
-  padding-right: 20px; /* Space between title and form */
-}
 
-.page-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
 
 .button-column {
   flex: 1;
@@ -238,10 +278,11 @@ body.dark-mode {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 100px); /* Adjust height to account for header and footer */
-  padding: 50px;
+  height: calc(100vh - 250px); /* Adjust height to account for header and footer */
+  padding: 1qpx;
   width: 100%; /* Make container take full width */
   box-sizing: border-box; /* Ensure padding is included in width */
+
 }
 
 .profile-container h1 {
@@ -308,15 +349,7 @@ body.dark-mode {
   background: linear-gradient(180deg, var(--second-color), var(--first-color));
 }
 
-.footer {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
-}
+
 
 .footer {
   position: absolute;
@@ -327,7 +360,6 @@ body.dark-mode {
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
 }
-
 
 
 
@@ -404,11 +436,18 @@ input:checked + .slider:before {
 .title-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  flex: 0 0 200px;
   height: 100%;
   margin-right: 20px;
+  padding-right: 20px;
 }
 
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 .main-title {
   font-size: var(--h1-font-size);
   font-family: 'Party', fantasy; /* Ensure the font-family is included */

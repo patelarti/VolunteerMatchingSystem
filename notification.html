@@ -10,83 +10,43 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>Event Details</title>
+    <title>Your Notifications - We Love Volunteering</title>
 </head>
 
 <body>
-    <div class="theme-toggle">
-        <label class="switch">
-            <input type="checkbox" id="theme-switch">
-            <span class="slider round"></span>
-        </label>
-        <span id="theme-label">Dark Mode</span>
-    </div>
     <div class="container">
-        <div class="login__content">
-            <div class="title-container">
-                <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
-            </div>
-            <div class="event_details">
-                <h2>Your Notifications</h2>
-
-                <table class="notification_table">
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            You have a new message
-                        </div>
-
-                    </tr>
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                              Volunteer matched successfully
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Your event was approved.
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Indicates a warning that might need attention.
-                        </div>
-
-                    </tr>
-
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Your event was approved.
-                        </div>
-
-                    </tr>
-
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Indicates a warning that might need attention.
-                        </div>
-
-                    </tr>
-
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Your event was approved.
-                        </div>
-
-                    </tr>
-
-                    <tr>
-                        <div class="alert"><span class="closebtn">&times;</span>
-                            Indicates a warning that might need attention.
-                        </div>
-
-                    </tr>
-
-                </table>
+        <div class="header">
+            <h2>Welcome, <span id="username">Rahma</span></h2>
+            <div class="header-icons">
+                <a href="base.html" class="icon-link">Dashboard <i class="ri-dashboard-line"></i></a>
+                <a href="profile.html" class="icon-link">Profile <i class="ri-user-line"></i></a>
             </div>
         </div>
+        <div class="content">
+            <div class="title-container">
+                <h1 class="page-title">Your Notifications</h1>
+            </div>
+            <div class="notification-column">
+                <div class="notification-list">
+                    <div class="alert"><span class="closebtn">&times;</span> You have a new message</div>
+                    <div class="alert"><span class="closebtn">&times;</span> Volunteer matched successfully</div>
+                    <div class="alert"><span class="closebtn">&times;</span> Your event was approved</div>
+                    <div class="alert"><span class="closebtn">&times;</span> Indicates a warning that might need attention</div>
+                    <div class="alert"><span class="closebtn">&times;</span> Your event was approved</div>
+                    <div class="alert additional"><span class="closebtn">&times;</span> Indicates a warning that might need attention</div>
+                    <div class="alert additional"><span class="closebtn">&times;</span> Your event was approved</div>
+                    <div class="alert additional"><span class="closebtn">&times;</span> Indicates a warning that might need attention</div>
+                </div>
+                <button id="show-more-btn" class="show-more-btn">Show More</button>
+            </div>
+        </div>
+        <footer class="footer">
+            &copy; 2024 We Love Volunteering. All rights reserved.
+        </footer>
     </div>
 
     <script>
+        // Close notifications
         var close = document.getElementsByClassName("closebtn");
         var i;
 
@@ -98,8 +58,20 @@
           }
         }
 
-    </script>
+        // Show more notifications
+        document.getElementById('show-more-btn').addEventListener('click', function() {
+            var additionalNotifications = document.getElementsByClassName('additional');
+            for (var i = 0; i < additionalNotifications.length; i++) {
+                additionalNotifications[i].style.display = 'block';
+            }
+            this.style.display = 'none'; // Hide the "Show More" button after clicking
+        });
 
+        // Hide additional notifications initially
+        var additionalNotifications = document.getElementsByClassName('additional');
+        for (var i = 0; i < additionalNotifications.length; i++) {
+            additionalNotifications[i].style.display = 'none';
+        }
+    </script>
 </body>
 </html>
-
