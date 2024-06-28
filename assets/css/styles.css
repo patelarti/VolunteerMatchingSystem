@@ -709,7 +709,7 @@ input:checked + .slider:before {
 
 .event_details {
     position: absolute;
-    right: 287px;
+    right: 380px;
     top: 120px;
     background-color: rgba(255,255,255,0.6);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
@@ -718,7 +718,7 @@ input:checked + .slider:before {
     backdrop-filter: blur(20px);
     padding: 2rem;
     border-radius: 1rem;
-    width: 300px; /* Adjust the width to make the box bigger */
+    width: 500px; /* Adjust the width to make the box bigger */
 
 }
 
