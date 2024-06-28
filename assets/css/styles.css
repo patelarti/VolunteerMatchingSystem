@@ -228,8 +228,8 @@ body.dark-mode {
 
 .image-column {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 }
 
 .dashboard-img {
@@ -373,7 +373,19 @@ body.dark-mode {
 
 
 
+.img-column {
+  display: flex;
+  justify-content: flex-start; /* Align to start horizontally */
+  align-items: flex-start; /* Align to start vertically */
+  margin-top: 130px; /* Push the image down */
+  margin-left: 100px; /* Push the image to the right */
+}
 
+.dashboard-image {
+  width: 300%; /* Set width to 100% of the container */
+  max-width: 250px; /* Set a maximum width */
+  height: auto; /* Maintain aspect ratio */
+}
 
 
 

@@ -23,83 +23,83 @@
             </div>
         </div>
         <div class="content">
-            <div class="container">
-                <div class="login__content">
-                    <div class="title-container">
-                        <h1 class="page-title"></h1>
-                    </div>
 
-                        <form id="eventForm" action="display.html" class="event__form " method="POST">
-                            <div>
-                                <h1 class="login__title">
-                                    Event Management Form
-                                </h1>
-
-                            </div>
-
-                            <div>
-                                <div class="login__inputs">
-
-                                    <div>
-                                        <label for="eventName" class="login__label">Event Name <span>(100 characters max)</span></label>
-                                        <input type="text" id="eventName" name="eventName" maxlength="100" class="login__input" required>
-                                    </div>
-                                    <div>
-                                        <label for="eventDescription"  class="login__label">Event Description</label>
-                                        <textarea id="eventDescription" name="eventDescription" rows="1" class="login__input" required></textarea>
-                                    </div>
-                                    <div>
-                                        <label for="location"  class="login__label">Location</label>
-                                        <textarea id="location" name="location" rows="1" class="login__input" required></textarea>
-                                    </div>
-                                    <div>
-                                        <label for="requiredSkills" class="login__label">Required Skills</label>
-                                        <select id="requiredSkills" name="requiredSkills" multiple="multiple" class="login__input" required>
-                                            <option value="Environmental Awareness">Environmental Awareness</option>
-                                            <option value="Physical Fitness">Physical Fitness</option>
-                                            <option value="Teamwork">Teamwork</option>
-                                            <option value="Event Planning">Event Planning</option>
-                                            <option value="Public Speaking">Public Speaking</option>
-                                            <option value="Organization">Organization</option>
-                                            <option value="Customer Service">Customer Service</option>
-                                            <option value="Lifting">Lifting</option>
-                                            <option value="Patience">Patience</option>
-                                            <option value="Communication">Communication</option>
-                                            <option value="Mentoring">Mentoring</option>
-                                            <option value="Conflict Resolution">Conflict Resolution</option>
-                                            <option value="Creativity">Creativity</option>
-                                            <option value="Customer Service">Customer Service</option>
-
-                                            <!-- Add more options as needed -->
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="urgency" class="login__label">Urgency</label>
-                                        <select id="urgency" name="urgency" class="login__input" required>
-                                            <option value="">Select urgency</option>
-                                            <option value="High">High</option>
-                                            <option value="Medium">Medium</option>
-                                            <option value="Low">Low</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="eventDate" class="login__label">Event Date</label>
-                                        <input type="date" id="eventDate" name="eventDate" class="login__input" required>
-                                    </div><br/>
-                                    <div>
-                                        <div class="login__buttons">
-                                            <button type="submit" class="login__button">Submit Event</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </form>
+        <div class="container">
+            <div class="login__content">
+                <div class="title-container">
+                    <h1 class="page-title"></h1>
                 </div>
+
+                    <form id="eventForm" action="display.html" class="event__form " method="POST">
+                        <div>
+                            <h1 class="login__title">
+                                Event Management Form
+                            </h1>
+
+                        </div>
+
+                        <div>
+                            <div class="login__inputs">
+
+                                <div>
+                                    <label for="eventName" class="login__label">Event Name <span>(100 characters max)</span></label>
+                                    <input type="text" id="eventName" name="eventName" maxlength="100" class="login__input" required>
+                                </div>
+                                <div>
+                                    <label for="eventDescription"  class="login__label">Event Description</label>
+                                    <textarea id="eventDescription" name="eventDescription" rows="1" class="login__input" required></textarea>
+                                </div>
+                                <div>
+                                    <label for="location"  class="login__label">Location</label>
+                                    <textarea id="location" name="location" rows="1" class="login__input" required></textarea>
+                                </div>
+                                <div>
+                                    <label for="requiredSkills" class="login__label">Required Skills</label>
+                                    <select id="requiredSkills" name="requiredSkills" multiple="multiple" class="login__input" required>
+                                        <option value="Environmental Awareness">Environmental Awareness</option>
+                                        <option value="Physical Fitness">Physical Fitness</option>
+                                        <option value="Teamwork">Teamwork</option>
+                                        <option value="Event Planning">Event Planning</option>
+                                        <option value="Public Speaking">Public Speaking</option>
+                                        <option value="Organization">Organization</option>
+                                        <option value="Customer Service">Customer Service</option>
+                                        <option value="Lifting">Lifting</option>
+                                        <option value="Patience">Patience</option>
+                                        <option value="Communication">Communication</option>
+                                        <option value="Mentoring">Mentoring</option>
+                                        <option value="Conflict Resolution">Conflict Resolution</option>
+                                        <option value="Creativity">Creativity</option>
+                                        <option value="Customer Service">Customer Service</option>
+
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="urgency" class="login__label">Urgency</label>
+                                    <select id="urgency" name="urgency" class="login__input" required>
+                                        <option value="">Select urgency</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="eventDate" class="login__label">Event Date</label>
+                                    <input type="date" id="eventDate" name="eventDate" class="login__input" required>
+                                </div><br/>
+                                <div>
+                                    <div class="login__buttons">
+                                        <button type="submit" class="login__button">Submit Event</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
             </div>
         </div>
-    </div>
+
     <script>
             document.getElementById('eventForm').addEventListener('submit', function(event) {
                 // Prevent the default form submission

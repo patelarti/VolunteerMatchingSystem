@@ -138,27 +138,34 @@ input:checked + .slider:before {
   padding: 5px;
 }
 
-.volunteer-section, .event-section {
+.volunteer-section, .event-section, .scholar-section {
   display: flex;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
 }
 
 .volunteer-section {
-  background-color: #f0f4ff;
-  border-radius: 10px;
-  padding: 20px;
+  background-color: #d5b37f;
+  border-radius: 6px;
+  padding: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .event-section {
-  background-color: #fff7f0;
-  border-radius: 10px;
-  padding: 20px;
+  background-color: #65af9e;
+  border-radius: 6px;
+  padding: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.volunteer-list, .volunteer-info, .event-info, .eventInformation {
+.scholar-section {
+  background-color: #b3cde0;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.volunteer-list, .volunteer-info, .event-info, .eventInformation, .scholar-list, .scholar-info {
   flex: 1;
   background-color: var(--container-bg-color, #ffffff);
   padding: 20px;
@@ -166,9 +173,12 @@ input:checked + .slider:before {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, box-shadow 0.3s;
   margin: 10px;
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  max-height: 200px;
 }
 
-.volunteer-list-title, .volunteer-info-title, .event-info-title {
+.volunteer-list-title, .volunteer-info-title, .event-info-title, .scholar-list-title, .scholar-info-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 20px;
