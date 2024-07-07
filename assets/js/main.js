@@ -19,16 +19,30 @@ const showHiddenPass = (inputPass, inputIcon) => {
 showHiddenPass('input-pass', 'input-icon');
 
 // Handle Login
-document.getElementById('login-form').addEventListener('submit', function(event) {
+document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent the default form submission
     const email = document.getElementById('input-email').value;
     const password = document.getElementById('input-pass').value;
 
-    // Check credentials
-    if (email === 'rahmaaloui3199@gmail.com' && password === '1234') {
-        window.location.href = 'base.html';
-    } else {
-        alert('Invalid email or password');
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            localStorage.setItem('token', data.token);
+            window.location.href = 'base.html';
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
     }
 });
 
