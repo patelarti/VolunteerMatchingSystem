@@ -2,7 +2,7 @@
 const showHiddenPass = (inputPass, inputIcon) => {
     const input = document.getElementById(inputPass),
           iconEye = document.getElementById(inputIcon);
-          
+
     iconEye.addEventListener('click', () => {
         if (input.type === 'password') {
             input.type = 'text';
@@ -24,7 +24,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     const email = document.getElementById('input-email').value;
     const password = document.getElementById('input-pass').value;
 
-    fetch('http://localhost:5000/login', {
+    fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        if (data.token) {
             window.location.href = 'base.html';
         } else {
             alert('Invalid email or password');
