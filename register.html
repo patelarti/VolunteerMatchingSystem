@@ -27,7 +27,7 @@
             </div>
             <div class="image-container">
                 <img src="assets/img/vol7.png" alt="register image" class="login__img">
-                <form action="base.html" class="login__form">
+                <form action="/api/register" method="POST" class="login__form">
                     <div>
                         <h1 class="login__title">
                             Register
@@ -73,5 +73,29 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('input-email').value;
+            const password = document.getElementById('input-pass').value;
+            const confirmPassword = document.getElementById('input-confirm-pass').value;
+
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password, confirmPassword }),
+            });
+
+            if (response.ok) {
+                alert('User registered successfully');
+                window.location.href = '/';
+            } else {
+                const data = await response.json();
+                alert(data.message);
+            }
+        });
+    </script>
 </body>
 </html>

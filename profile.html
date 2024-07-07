@@ -26,7 +26,7 @@
                 <h1 class="page-title">User Profile Management</h1>
             </div>
             <div class="profile-container">
-                <form action="#" class="profile-form">
+                <form action="#" class="profile-form" id="profile-form">
                     <div class="form-column">
                         <div class="form-group">
                             <label for="full-name">Full Name</label>
@@ -103,5 +103,56 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = 'rahmaaloui3199@gmail.com'; // Change this to dynamically fetch the email if needed
+            fetch(`/api/user?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('full-name').value = data.fullName;
+                    document.getElementById('dob').value = data.dob;
+                    document.getElementById('address1').value = data.address1;
+                    document.getElementById('address2').value = data.address2;
+                    document.getElementById('city').value = data.city;
+                    document.getElementById('state').value = data.state;
+                    document.getElementById('zip').value = data.zip;
+                    document.getElementById('skills').value = data.skills;
+                    document.getElementById('preferences').value = data.preferences;
+                    document.getElementById('availability').value = data.availability;
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                email: 'rahmaaloui3199@gmail.com', // Change this to dynamically fetch the email if needed
+                fullName: document.getElementById('full-name').value,
+                dob: document.getElementById('dob').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value,
+                skills: Array.from(document.getElementById('skills').selectedOptions).map(option => option.value),
+                preferences: document.getElementById('preferences').value,
+                availability: document.getElementById('availability').value
+            };
+
+            fetch('/api/updateProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error updating profile:', error));
+        });
+    </script>
 </body>
 </html>

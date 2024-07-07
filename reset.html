@@ -10,7 +10,7 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>Forgot Password - We Love Volunteering</title>
+    <title>Reset Password - We Love Volunteering</title>
 </head>
 <body>
     <div class="theme-toggle">
@@ -26,29 +26,39 @@
                 <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
             </div>
             <div class="image-container">
-                <img src="assets/img/vol7.png" alt="forgot password image" class="login__img">
-                <form action="/api/forgot" method="POST" class="login__form">
+                <img src="assets/img/vol7.png" alt="reset password image" class="login__img">
+                <form action="/api/reset" method="POST" class="login__form">
                     <div>
                         <h1 class="login__title">
-                            Forgot Password
+                            Reset Password
                         </h1>
                         <p class="login__description">
-                            Enter your email to reset your password.
+                            Enter your new password.
                         </p>
                     </div>
                     
                     <div>
                         <div class="login__inputs">
                             <div>
-                                <label for="input-email" class="login__label">Email</label>
-                                <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email">
+                                <label for="new-password" class="login__label">New Password</label>
+                                <div class="login__box">
+                                    <input type="password" placeholder="Enter your new password" required class="login__input" id="new-password">
+                                    <i class="ri-eye-off-line login__eye" id="input-icon-new"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="confirm-new-password" class="login__label">Confirm New Password</label>
+                                <div class="login__box">
+                                    <input type="password" placeholder="Confirm your new password" required class="login__input" id="confirm-new-password">
+                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm-new"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <div class="login__buttons">
-                            <button type="submit" class="login__button">Submit</button>
+                            <button type="submit" class="login__button">Reset Password</button>
                             <a href="/" class="login__button login__button-ghost">Back to Login</a>
                         </div>
                     </div>
@@ -59,27 +69,5 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
-    <script>
-        document.getElementById('forgot-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const email = document.getElementById('input-email').value;
-
-            const response = await fetch('/api/forgot', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            if (response.ok) {
-                alert('Password reset link sent to your email');
-                window.location.href = '/';
-            } else {
-                const data = await response.json();
-                alert(data.message);
-            }
-        });
-    </script>
 </body>
 </html>

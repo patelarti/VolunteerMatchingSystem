@@ -41,6 +41,64 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     })
     .catch(error => console.error('Error:', error));
 });
+document.getElementById('reset-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    const newPassword = document.getElementById('new-password').value;
+    const confirmNewPassword = document.getElementById('confirm-new-password').value;
+
+    fetch('/api/reset', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, newPassword, confirmNewPassword })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.message === 'Password reset successfully') {
+            window.location.href = '/';
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Handle Profile Update
+document.getElementById('profile-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const fullName = document.getElementById('full-name').value;
+    const dob = document.getElementById('dob').value;
+    const address1 = document.getElementById('address1').value;
+    const address2 = document.getElementById('address2').value;
+    const city = document.getElementById('city').value;
+    const state = document.getElementById('state').value;
+    const zip = document.getElementById('zip').value;
+    const skills = Array.from(document.getElementById('skills').selectedOptions).map(option => option.value);
+    const preferences = document.getElementById('preferences').value;
+    const availability = document.getElementById('availability').value;
+
+    fetch('/api/updateProfile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, fullName, dob, address1, address2, city, state, zip, skills, preferences, availability })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.message === 'Profile updated successfully') {
+            // Optionally, redirect or update the UI
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 
 // Toggle Dark Mode
 const themeSwitch = document.getElementById('theme-switch');

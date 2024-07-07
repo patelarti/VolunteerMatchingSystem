@@ -28,6 +28,14 @@ app.get('/forgot', (req, res) => {
     res.sendFile(path.join(__dirname, '../../forgot.html'));
 });
 
+app.get('/profile', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../profile.html'));
+});
+
+app.get('/base', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../base.html'));
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
