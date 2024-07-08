@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="../static/css/styles.css">
+
+    <title>User Profile Management - We Love Volunteering</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Welcome, <span id="username">Rahma</span></h2>
+            <div class="header-icons">
+                <a href="base.html" class="icon-link">Dashboard <i class="ri-dashboard-line"></i></a>
+                <a href="notification.html" class="icon-link">Notification <i class="ri-notification-line"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="title-container">
+                <h1 class="page-title">User Profile Management</h1>
+            </div>
+            <div class="profile-container">
+                <form action="#" class="profile-form" id="profile-form">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="skills">Skills</label>
+                            <select id="skills" name="skills" multiple required>
+                                <option value="Environmental Awareness">Environmental Awareness</option>
+                                <option value="Physical Fitness">Physical Fitness</option>
+                                <option value="Teamwork">Teamwork</option>
+                                <option value="Event Planning">Event Planning</option>
+                                <option value="Public Speaking">Public Speaking</option>
+                                <option value="Organization">Organization</option>
+                                <option value="Customer Service">Customer Service</option>
+                                <option value="Lifting">Lifting</option>
+                                <option value="Patience">Patience</option>
+                                <option value="Communication">Communication</option>
+                                <option value="Mentoring">Mentoring</option>
+                                <option value="Conflict Resolution">Conflict Resolution</option>
+                                <option value="Creativity">Creativity</option>
+                                <option value="Customer Service">Customer Service</option>
+                                <!-- Add more skill options as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferences">Preferences</label>
+                            <textarea id="preferences" name="preferences" placeholder="Enter your preferences (optional)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="availability">Availability</label>
+                            <input type="date" id="availability" name="availability" multiple required>
+                        </div>
+                    </div>
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="address1">Address 1</label>
+                            <input type="text" id="address1" name="address1" placeholder="Enter your address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address2">Address 2</label>
+                            <input type="text" id="address2" name="address2" placeholder="Enter your address (optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" required>
+                                <option value="">Select your state</option>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <!-- Add more state options as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">Zip Code</label>
+                            <input type="text" id="zip" name="zip" placeholder="Enter your zip code" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-button">Update Profile</button>
+                </form>
+            </div>
+        </div>
+        <footer class="footer">
+            &copy; 2024 We Love Volunteering. All rights reserved.
+        </footer>
+    </div>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="../static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = 'rahmaaloui3199@gmail.com'; // Change this to dynamically fetch the email if needed
+            fetch(`/api/user?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('full-name').value = data.fullName;
+                    document.getElementById('dob').value = data.dob;
+                    document.getElementById('address1').value = data.address1;
+                    document.getElementById('address2').value = data.address2;
+                    document.getElementById('city').value = data.city;
+                    document.getElementById('state').value = data.state;
+                    document.getElementById('zip').value = data.zip;
+                    document.getElementById('skills').value = data.skills;
+                    document.getElementById('preferences').value = data.preferences;
+                    document.getElementById('availability').value = data.availability;
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
+
+        document.getElementById('profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                email: 'rahmaaloui3199@gmail.com', // Change this to dynamically fetch the email if needed
+                fullName: document.getElementById('full-name').value,
+                dob: document.getElementById('dob').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value,
+                skills: Array.from(document.getElementById('skills').selectedOptions).map(option => option.value),
+                preferences: document.getElementById('preferences').value,
+                availability: document.getElementById('availability').value
+            };
+
+            fetch('/api/updateProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error updating profile:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="../static/css/styles.css">
+
+    <title>Register - We Love Volunteering</title>
+</head>
+<body>
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider round"></span>
+        </label>
+        <span id="theme-label">Dark Mode</span>
+    </div>
+    <div class="container">
+        <div class="login__content">
+            <div class="title-container">
+                <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>
+            </div>
+            <div class="image-container">
+                <img src="../static/img/vol7.png" alt="register image" class="login__img">
+                <form action="/api/register" method="POST" class="login__form" id="register-form">
+                    <div>
+                        <h1 class="login__title">Register</h1>
+                        <p class="login__description">Create your account. It's free and only takes a minute.</p>
+                    </div>
+                    <div>
+                        <div class="login__inputs">
+                            <div>
+                                <label for="input-email" class="login__label">Email</label>
+                                <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email">
+                            </div>
+                            <div>
+                                <label for="input-pass" class="login__label">Password</label>
+                                <div class="login__box">
+                                    <input type="password" placeholder="Enter your password" required class="login__input" id="input-pass">
+                                    <i class="ri-eye-off-line login__eye" id="input-icon"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="input-confirm-pass" class="login__label">Confirm Password</label>
+                                <div class="login__box">
+                                    <input type="password" placeholder="Confirm your password" required class="login__input" id="input-confirm-pass">
+                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="login__buttons">
+                            <button type="submit" class="login__button">Sign Up</button>
+                            <a href="../index.html" class="login__button login__button-ghost">Back to Login</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="../static/js/main.js"></script>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('input-email').value;
+            const password = document.getElementById('input-pass').value;
+            const confirmPassword = document.getElementById('input-confirm-pass').value;
+
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password, confirmPassword }),
+            });
+
+            if (response.ok) {
+                alert('User registered successfully');
+                window.location.href = '../index.html';
+            } else {
+                const data = await response.json();
+                alert(data.message);
+            }
+        });
+    </script>
+</body>
+</html>
