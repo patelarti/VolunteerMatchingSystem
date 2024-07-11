@@ -1,10 +1,6 @@
-
-# from flask import Blueprint, render_template
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
+from flask import render_template, request, jsonify, redirect, url_for
+from app.auth import auth_bp
 import bcrypt
-
-auth_bp = Blueprint('auth', __name__)
-
 
 testUsers = [
     { 'email': 'rahmaaloui3199@gmail.com', 'password': bcrypt.hashpw('1234'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
@@ -18,21 +14,20 @@ testUsers = [
 def index():
     return render_template('index.html')
 
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
 
-    user = next((user for user in testUsers if user['email'] == email), None)
-    if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-        return jsonify({'message': 'Invalid email or password'}), 401
-    print('message:', 'Login successful')
-    return jsonify({'message': 'Login successful'}), 200
+        user = next((user for user in testUsers if user['email'] == email), None)
+        if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            return jsonify({'message': 'Invalid email or password'}), 401
 
-@auth_bp.route('/base')
-def base():
-    return render_template('base.html')
+        return jsonify({'message': 'Login successful'}), 200
+
+    return render_template('login.html')
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -94,40 +89,3 @@ def reset():
         return jsonify({'message': 'Password reset successfully'}), 200
 
     return render_template('reset.html')
-
-@auth_bp.route('/profile', methods=['GET', 'POST'])
-def profile():
-    if request.method == 'POST':
-        data = request.get_json()
-        email = data.get('email')
-        full_name = data.get('fullName')
-        dob = data.get('dob')
-        address1 = data.get('address1')
-        address2 = data.get('address2')
-        city = data.get('city')
-        state = data.get('state')
-        zip_code = data.get('zip')
-        skills = data.get('skills')
-        preferences = data.get('preferences')
-        availability = data.get('availability')
-
-        user = next((user for user in testUsers if user['email'] == email), None)
-        if not user:
-            return jsonify({'message': 'User not found'}), 404
-
-        user.update({
-            'fullName': full_name,
-            'dob': dob,
-            'address1': address1,
-            'address2': address2,
-            'city': city,
-            'state': state,
-            'zip': zip_code,
-            'skills': skills,
-            'preferences': preferences,
-            'availability': availability
-        })
-
-        return jsonify({'message': 'Profile updated successfully'})
-
-    return render_template('profile.html')

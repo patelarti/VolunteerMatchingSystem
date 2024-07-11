@@ -16,4 +16,4 @@ def notification():
         "Indicates a warning that might need attention"
     ]
 
-    return render_template('notification.html', notifications = notifications)
+    return render_template('../../templates/notification.html', notifications = notifications)

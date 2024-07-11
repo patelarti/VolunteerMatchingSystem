@@ -1,8 +1,9 @@
+from flask import render_template, request, jsonify
+from app.volunteer_matching import matching_bp
 
-from flask import Blueprint, render_template
-
-matching_bp = Blueprint('matching', __name__)
-
-@matching_bp.route('/')
-def notification():
+@matching_bp.route('/matching', methods=['GET', 'POST'])
+def volunteer_matching():
+    if request.method == 'POST':
+        # Handle POST request
+        pass
     return render_template('volunteer_matching.html')
