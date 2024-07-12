@@ -38,4 +38,4 @@ def profile():
 
         return jsonify({'message': 'Profile updated successfully'})
 
-    return render_template('../../templates/profile.html')
+    return render_template('profile.html')

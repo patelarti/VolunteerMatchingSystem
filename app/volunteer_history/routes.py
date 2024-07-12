@@ -1,7 +1,8 @@
-from flask import render_template, request, jsonify
-from app.volunteer_history import history_bp
+from flask import Blueprint, render_template, url_for, request, redirect
 
-@history_bp.route('/history', methods=['GET', 'POST'])
+history_bp = Blueprint('history', __name__)
+
+@history_bp.route('/', methods=['GET', 'POST'])
 def volunteer_history():
     if request.method == 'POST':
         # Handle POST request
