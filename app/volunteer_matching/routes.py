@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Blueprint, render_template, jsonify, request
 from .data import events, volunteers
 from .models import Volunteer, Event
@@ -29,7 +28,7 @@ def assign_event():
             return jsonify({"message": f"Event '{event_name}' assigned to volunteer '{volunteer_name}'"}), 200
 
     return jsonify({"error": "Volunteer not found"}), 404
-=======
+
 from flask import Blueprint, render_template, url_for, request, redirect
 
 matching_bp = Blueprint('matching', __name__)
@@ -40,4 +39,4 @@ def volunteer_matching():
         # Handle POST request
         pass
     return render_template('volunteer_matching.html')
->>>>>>> ee5031843ca527ec37135e8b27494f9d64205578
+

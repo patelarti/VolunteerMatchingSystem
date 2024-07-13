@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
+from flask import render_template, request, jsonify, redirect, url_for, session
+from app.auth import auth_bp
 import bcrypt
-
-auth_bp = Blueprint('auth', __name__)
 
 testUsers = [
     { 'email': 'rahmaaloui3199@gmail.com', 'password': bcrypt.hashpw('1234'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
@@ -24,14 +23,27 @@ def login():
 
         user = next((user for user in testUsers if user['email'] == email), None)
         if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            session["signed_in"] = False
             return jsonify({'message': 'Invalid email or password'}), 401
+
+        session['signed_in'] = True
 
         return jsonify({'message': 'Login successful'}), 200
 
     return render_template('login.html')
+
 @auth_bp.route('/base')
 def base():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
     return render_template('base.html')
+
+@auth_bp.route("/logout")
+def logout():
+    session['signed_in'] = False
+    return render_template("index.html")
+
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':

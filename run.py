@@ -7,6 +7,7 @@ from app.notifications.routes import notifications_bp
 from app.volunteer_history.routes import history_bp
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "4567"
 
 app.register_blueprint(auth_bp, url_prefix='/')
 app.register_blueprint(profile_bp, url_prefix='/profile')
