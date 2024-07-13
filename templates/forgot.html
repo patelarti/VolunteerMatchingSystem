@@ -27,7 +27,7 @@
             </div>
             <div class="image-container">
                 <img src="../static/img/vol7.png" alt="forgot password image" class="login__img">
-                <form action="/api/forgot" method="POST" class="login__form" id="forgot-form">
+                <form action="/forgot" method="POST" class="login__form" id="forgot-form">
                     <div>
                         <h1 class="login__title">Forgot Password</h1>
                         <p class="login__description">Enter your email to reset your password.</p>
@@ -58,7 +58,7 @@
             event.preventDefault();
             const email = document.getElementById('input-email').value;
 
-            const response = await fetch('/api/forgot', {
+            const response = await fetch('/forgot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

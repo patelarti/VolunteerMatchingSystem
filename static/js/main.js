@@ -51,7 +51,7 @@ document.getElementById('reset-form').addEventListener('submit', function(event)
     const newPassword = document.getElementById('new-password').value;
     const confirmNewPassword = document.getElementById('confirm-new-password').value;
 
-    fetch('/api/reset', {
+    fetch('/reset', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ document.getElementById('reset-form').addEventListener('submit', function(event)
     .then(data => {
         alert(data.message);
         if (data.message === 'Password reset successfully') {
-            window.location.href = '/';
+            window.location.href = '/login';
         }
     })
     .catch(error => console.error('Error:', error));

@@ -27,7 +27,7 @@
             </div>
             <div class="image-container">
                 <img src="../static/img/vol7.png" alt="register image" class="login__img">
-                <form action="/api/register" method="POST" class="login__form" id="register-form">
+                <form action="/register" method="POST" class="login__form" id="register-form">
                     <div>
                         <h1 class="login__title">Register</h1>
                         <p class="login__description">Create your account. It's free and only takes a minute.</p>
@@ -74,7 +74,7 @@
             const password = document.getElementById('input-pass').value;
             const confirmPassword = document.getElementById('input-confirm-pass').value;
 
-            const response = await fetch('/api/register', {
+            const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,7 +84,7 @@
 
             if (response.ok) {
                 alert('User registered successfully');
-                window.location.href = '../index.html';
+                window.location.href = '/base';
             } else {
                 const data = await response.json();
                 alert(data.message);

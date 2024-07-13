@@ -27,6 +27,7 @@ def login():
             return jsonify({'message': 'Invalid email or password'}), 401
 
         session['signed_in'] = True
+        session['email'] = email
 
         return jsonify({'message': 'Login successful'}), 200
 
@@ -36,11 +37,12 @@ def login():
 def base():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    return render_template('base.html')
+    return render_template('base.html',email = session['email'])
 
 @auth_bp.route("/logout")
 def logout():
     session['signed_in'] = False
+    session['email'] = ''
     return render_template("index.html")
 
 
@@ -51,7 +53,7 @@ def register():
         email = data.get('email')
         password = data.get('password')
         confirm_password = data.get('confirmPassword')
-
+        print("data==>",data)
         if password != confirm_password:
             return jsonify({'message': 'Passwords do not match'}), 400
 
@@ -61,6 +63,10 @@ def register():
 
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         testUsers.append({'email': email, 'password': hashed_password})
+
+        session["signed_in"] = True
+
+        session["email"] = email
 
         return jsonify({'message': 'User registered successfully'}), 201
 
@@ -90,6 +96,7 @@ def reset():
         email = data.get('email')
         new_password = data.get('newPassword')
         confirm_new_password = data.get('confirmNewPassword')
+        print("data==>",data)
 
         if new_password != confirm_new_password:
             return jsonify({'message': 'Passwords do not match'}), 400
@@ -100,6 +107,7 @@ def reset():
 
         hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         user['password'] = hashed_password
+        print("resetting password")
 
         return jsonify({'message': 'Password reset successfully'}), 200
 
