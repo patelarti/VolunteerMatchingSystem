@@ -3,6 +3,7 @@ from app.auth import auth_bp
 import bcrypt
 
 testUsers = [
+    {'email': 'patelarti91@gmail.com', 'password': bcrypt.hashpw('1111'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
     { 'email': 'rahmaaloui3199@gmail.com', 'password': bcrypt.hashpw('1234'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
     { 'email': 'john.doe@example.com', 'password': bcrypt.hashpw('password1'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
     { 'email': 'jane.smith@example.com', 'password': bcrypt.hashpw('password2'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
@@ -30,7 +31,7 @@ def login():
         session['email'] = email
 
         return jsonify({'message': 'Login successful'}), 200
-
+        # return "login success"
     return render_template('login.html')
 
 @auth_bp.route('/base')

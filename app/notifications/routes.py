@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, jsonify, session
 
 notifications_bp = Blueprint('notification', __name__)
 
-@notifications_bp.route('/')
+@notifications_bp.route('/', methods=['GET'])
 def notification():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
