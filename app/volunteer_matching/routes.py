@@ -1,12 +1,8 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, render_template, jsonify, request, session
 from .data import events, volunteers
 from .models import Volunteer, Event
 
 matching_bp = Blueprint('matching', __name__)
-
-@matching_bp.route('/', methods=['GET'])
-def volunteer_matching():
-    return render_template('volunteer_matching.html')
 
 @matching_bp.route('/api/volunteers', methods=['GET'])
 def get_volunteers():
@@ -29,12 +25,10 @@ def assign_event():
 
     return jsonify({"error": "Volunteer not found"}), 404
 
-from flask import Blueprint, render_template, url_for, request, redirect
-
-matching_bp = Blueprint('matching', __name__)
-
 @matching_bp.route('/', methods=['GET', 'POST'])
 def volunteer_matching():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
     if request.method == 'POST':
         # Handle POST request
         pass

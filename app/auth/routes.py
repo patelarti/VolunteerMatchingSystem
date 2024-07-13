@@ -37,12 +37,13 @@ def login():
 def base():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    return render_template('base.html',email = session['email'])
+    return render_template('base.html', email=session['email'])
 
 @auth_bp.route("/logout")
 def logout():
     session['signed_in'] = False
     session['email'] = ''
+    print("Logout....")
     return render_template("index.html")
 
 

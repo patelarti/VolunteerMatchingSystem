@@ -1,14 +1,18 @@
 
-from flask import Blueprint, render_template, url_for, request, redirect
+from flask import Blueprint, render_template, url_for, request, redirect, session
 
 events_bp = Blueprint('events', __name__)
 
 
 @events_bp.route('/', methods=['POST', 'GET'])
 def event_management_form():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
     return render_template('event_management.html')
 @events_bp.route('/display.html', methods=['GET'])
 def display_event():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
     # Retrieve query parameters
     event_name = request.args.get('eventName')
     event_description = request.args.get('eventDescription')

@@ -1,10 +1,12 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, session
 from app.user_profile import profile_bp
 import bcrypt
 from app.auth.routes import testUsers  # Assuming testUsers is defined in app.auth.routes
 
 @profile_bp.route('/', methods=['GET', 'POST'])
 def profile():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
     if request.method == 'POST':
         data = request.get_json()
         email = data.get('email')
