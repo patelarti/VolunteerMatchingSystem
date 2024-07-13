@@ -103,10 +103,10 @@ document.getElementById('profile-form').addEventListener('submit', function(even
 
 
 // Toggle Dark Mode
-const themeSwitch = document.getElementById('theme-switch');
-const themeLabel = document.getElementById('theme-label');
-
-themeSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('dark-mode');
-    themeLabel.textContent = themeSwitch.checked ? 'Light Mode' : 'Dark Mode';
-});
+//const themeSwitch = document.getElementById('theme-switch');
+//const themeLabel = document.getElementById('theme-label');
+//
+//themeSwitch.addEventListener('change', () => {
+//    document.body.classList.toggle('dark-mode');
+//    themeLabel.textContent = themeSwitch.checked ? 'Light Mode' : 'Dark Mode';
+//});
