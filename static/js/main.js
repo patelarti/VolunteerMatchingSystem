@@ -27,6 +27,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     fetch('/login', {
         method: 'POST',
         headers: {
+            'Accept':'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password })
@@ -54,6 +55,7 @@ document.getElementById('reset-form').addEventListener('submit', function(event)
     fetch('/reset', {
         method: 'POST',
         headers: {
+            'Accept':'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, newPassword, confirmNewPassword })

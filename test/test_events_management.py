@@ -45,8 +45,11 @@ class EventManagementTest(unittest.TestCase):
                 "urgency":"low",
                 "eventDate":"7-13-2024"
                 }
-        response = tester.get('/events/display.html', data=data)
-        self.assertEqual(response.status_code, 200)
+
+        response = tester.get('/events/display.html', query_string = data)
+        # print("test response===>", response.data)
+        #self.assertEqual(response.status_code, 200)
+        self.assertIn(str.encode("Event Details"), response.data)
 
 
 

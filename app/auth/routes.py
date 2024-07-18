@@ -15,10 +15,11 @@ testUsers = [
 def index():
     return render_template('index.html')
 
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         data = request.get_json()
+        # print("data==>",type(data))
         email = data.get('email')
         password = data.get('password')
 
@@ -32,7 +33,7 @@ def login():
 
         return jsonify({'message': 'Login successful'}), 200
         # return "login success"
-    return render_template('login.html')
+    # return render_template('login.html')
 
 @auth_bp.route('/base')
 def base():
@@ -44,11 +45,11 @@ def base():
 def logout():
     session['signed_in'] = False
     session['email'] = ''
-    print("Logout....")
+    #print("Logout....")
     return render_template("index.html")
 
 
-@auth_bp.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         data = request.get_json()
@@ -72,7 +73,7 @@ def register():
 
         return jsonify({'message': 'User registered successfully'}), 201
 
-    return render_template('register.html')
+    # return render_template('register.html')
 
 @auth_bp.route('/forgot', methods=['GET', 'POST'])
 def forgot():
