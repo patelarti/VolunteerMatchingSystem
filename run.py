@@ -1,6 +1,6 @@
 from flask import Flask
 from app.auth.routes import auth_bp
-from app.user_profile import profile_bp
+from app.user_profile.routes import profile_bp
 from app.events_management.routes import events_bp
 from app.volunteer_matching.routes import matching_bp
 from app.notifications.routes import notifications_bp

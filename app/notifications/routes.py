@@ -11,11 +11,9 @@ def notification():
         "You have a new message",
         "Volunteer matched successfully",
         "Your event was approved",
-        "Indicates a warning that might need attention",
-        "Your event was approved",
-        "Indicates a warning that might need attention",
-        "Your event was approved",
-        "Indicates a warning that might need attention"
+        "Event ABC might need your attention",
+        "Your event was cancelled",
+        "Event XYZ might need your attention",
     ]
 
-    return render_template('notification.html', notifications = notifications)
+    return render_template('notification.html', notifications = notifications, username = session['username'])

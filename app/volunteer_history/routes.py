@@ -7,4 +7,4 @@ def volunteer_history():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
 
-    return render_template('volunteer_history.html')
+    return render_template('volunteer_history.html', username=session['username'])

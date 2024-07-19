@@ -90,28 +90,6 @@ input:checked + .slider:before {
 }
 
 
-.header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 40px);
-  font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
-  color: var(--title-color);
-}
-
-.header h2 {
-  font-size: 1.5rem;
-  color: var(--title-color);
-}
-
-.header-icons {
-  display: flex;
-  gap: 20px;
-}
-
 .icon-link {
   color: var(--title-color);
   font-size: 1.5rem;

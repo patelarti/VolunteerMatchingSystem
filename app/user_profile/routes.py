@@ -1,7 +1,9 @@
-from flask import render_template, request, jsonify, session
-from app.user_profile import profile_bp
+from flask import render_template, request, jsonify, session, Blueprint
+# from app.user_profile import profile_bp
 import bcrypt
+
 from app.auth.routes import testUsers  # Assuming testUsers is defined in app.auth.routes
+profile_bp = Blueprint('profile', __name__)
 
 @profile_bp.route('/', methods=['GET', 'POST'])
 def profile():
@@ -40,4 +42,4 @@ def profile():
 
         return jsonify({'message': 'Profile updated successfully'}), 200
 
-    return render_template('profile.html')
+    return render_template('profile.html',username=session['username'])

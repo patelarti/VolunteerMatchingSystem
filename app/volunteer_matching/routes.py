@@ -9,7 +9,7 @@ def volunteer_matching():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
 
-    return render_template('volunteer_matching.html')
+    return render_template('volunteer_matching.html', username=session['username'])
 
 @matching_bp.route('/api/volunteers', methods=['GET'])
 def get_volunteers():

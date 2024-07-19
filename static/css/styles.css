@@ -56,7 +56,7 @@ body.dark-mode {
 
 .header {
   position: absolute;
-  top: 20px;
+  top: 1px;
   left: 20px;
   display: flex;
   justify-content: space-between;
@@ -116,7 +116,7 @@ body.dark-mode {
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  max-height: calc(100vh - 190px); /* Adjust based on footer height */
+  max-height: calc(100vh - 250px); /* Adjust based on footer height */
 }
 
 .notification-list {
@@ -130,7 +130,7 @@ body.dark-mode {
 .notification-list .alert {
   display: block;
   width: 90%;
-  padding: 20px;
+  padding: 10px;
   background-color: #f9f9f9;
   color: #333;
   border-radius: 8px;
@@ -241,30 +241,6 @@ body.dark-mode {
 }
 
 
-/* profile part */
-
-
-.header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 40px);
-  font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
-  color: var(--title-color);
-}
-
-#username {
-  color: var(--first-color);
-  font-weight: var(--font-semi-bold);
-}
-
-.header-icons {
-  display: flex;
-  gap: 20px;
-}
 
 .icon-link {
   color: var(--title-color);
@@ -722,7 +698,7 @@ input:checked + .slider:before {
 .event_details {
     position: absolute;
     right: 380px;
-    top: 120px;
+    top: 130px;
     background-color: rgba(255,255,255,0.6);
     border: 2px solid hsla(244, 16%, 92%, 0.75);
     margin-inline: 1.5rem;

@@ -8,7 +8,7 @@ events_bp = Blueprint('events', __name__)
 def event_management_form():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    return render_template('event_management.html',email=session['email'])
+    return render_template('event_management.html', email=session['email'], username=session['username'])
 @events_bp.route('/display.html', methods=['GET'])
 def display_event():
     if session.get('signed_in') is None or session["signed_in"] == False:
@@ -36,4 +36,5 @@ def display_event():
                            event_location=event_location,
                            required_skills=required_skills,
                            urgency=urgency,
-                           event_date=event_date)
+                           event_date=event_date,
+                           username=session['username'])

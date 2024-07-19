@@ -1,24 +1,29 @@
 import unittest
+from run import app
 import sys
 sys.path.append("../VolunteerMatch")
-from run import app
-from flask import jsonify
+
 
 class AuthTest(unittest.TestCase):
     def setUp(self):
         self.tester = app.test_client(self)
+
     def test_canary(self):
         self.assertTrue(True)
 
     def test_index(self):
-        # tester = app.test_client(self)
-
         response = self.tester.get('/', content_type='text/HTML')
-        self.assertEqual(response.status_code, 200)
+        val = 'Welcome! Please login to continue.'
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
+    def test_login_send_get_request(self):
+        response = self.tester.get('/login')
+        val = 'Welcome! Please login to continue.'
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
 
     def test_login_incorrect_pwd(self):
-        #tester = app.test_client(self)
-
         data = {
             "email": "patelarti91@gmail.com",
             "password": "abcd"
@@ -26,13 +31,10 @@ class AuthTest(unittest.TestCase):
 
         response = self.tester.post('/login', json=data)
         val = '{"message":"Invalid email or password"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(401, response.status_code)
 
     def test_login_correct_pwd(self):
-        #tester = app.test_client(self)
-
         data = {
             "email": "patelarti91@gmail.com",
             "password": "1111"
@@ -40,14 +42,12 @@ class AuthTest(unittest.TestCase):
 
         response = self.tester.post('/login', json=data)
         val = '{"message":"Login successful"}\n'
-        #print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
     def test_base_not_signed_in(self):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = False
-            #sess['email'] = 'patelarti91@gmail.com'
 
         response = self.tester.get('/base')
         self.assertIn(str.encode("Welcome! Please login to continue."), response.data)
@@ -72,10 +72,8 @@ class AuthTest(unittest.TestCase):
             self.assertEqual(sess['email'], "")
 
     def test_register_send_get_request(self):
-
         response = self.tester.get('/register')
         val = 'Create your account. It\'s free and only takes a minute.'
-        # print(response.data)
         self.assertIn(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
@@ -123,10 +121,8 @@ class AuthTest(unittest.TestCase):
             self.assertEqual(sess['email'], "abc@gmail.com")
 
     def test_forgot_send_get_request(self):
-
         response = self.tester.get('/forgot')
         val = 'Forgot Password'
-        # print(response.data)
         self.assertIn(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
@@ -137,7 +133,6 @@ class AuthTest(unittest.TestCase):
 
         response = self.tester.post('/forgot', json=data)
         val = '{"message":"Password reset link sent to your email"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
@@ -148,15 +143,12 @@ class AuthTest(unittest.TestCase):
 
         response = self.tester.post('/forgot', json=data)
         val = '{"message":"Email not found"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(404, response.status_code)
 
     def test_reset_send_get_request(self):
-
         response = self.tester.get('/reset')
         val = 'Reset Password'
-        # print(response.data)
         self.assertIn(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
@@ -169,7 +161,6 @@ class AuthTest(unittest.TestCase):
         }
         response = self.tester.post('/reset', json=data)
         val = '{"message":"Password reset successfully"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
@@ -182,7 +173,6 @@ class AuthTest(unittest.TestCase):
         }
         response = self.tester.post('/reset', json=data)
         val = '{"message":"Passwords do not match"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(400, response.status_code)
 
@@ -195,12 +185,9 @@ class AuthTest(unittest.TestCase):
         }
         response = self.tester.post('/reset', json=data)
         val = '{"message":"Email not found"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(404, response.status_code)
 
 
 if __name__ == "__main__":
     unittest.main()
-
-

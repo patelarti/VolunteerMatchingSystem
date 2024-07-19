@@ -1,6 +1,9 @@
-from flask import render_template, request, jsonify, redirect, url_for, session
-from app.auth import auth_bp
+from flask import render_template, request, jsonify, redirect, url_for, session, Blueprint
 import bcrypt
+
+auth_bp = Blueprint('auth', __name__)
+
+
 
 testUsers = [
     {'email': 'patelarti91@gmail.com', 'password': bcrypt.hashpw('1111'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
@@ -15,11 +18,10 @@ testUsers = [
 def index():
     return render_template('index.html')
 
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         data = request.get_json()
-        # print("data==>",type(data))
         email = data.get('email')
         password = data.get('password')
 
@@ -30,21 +32,24 @@ def login():
 
         session['signed_in'] = True
         session['email'] = email
+        session['username'] = session['email'].split('@')[0]
+        print("session['username']====>", session['username'])
 
         return jsonify({'message': 'Login successful'}), 200
         # return "login success"
-    # return render_template('login.html')
+    return render_template('index.html')
 
 @auth_bp.route('/base')
 def base():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    return render_template('base.html', email=session['email'])
+    return render_template('base.html', email=session['email'], username=session['username'])
 
 @auth_bp.route("/logout")
 def logout():
     session['signed_in'] = False
     session['email'] = ''
+    session['username'] = ''
     #print("Logout....")
     return render_template("index.html")
 
