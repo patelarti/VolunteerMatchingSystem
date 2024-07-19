@@ -4,6 +4,13 @@ from .models import Volunteer, Event
 
 matching_bp = Blueprint('matching', __name__)
 
+@matching_bp.route('/', methods=['GET'])
+def volunteer_matching():
+    if session.get('signed_in') is None or session["signed_in"] == False:
+        return render_template("index.html")
+
+    return render_template('volunteer_matching.html')
+
 @matching_bp.route('/api/volunteers', methods=['GET'])
 def get_volunteers():
     return jsonify([volunteer.to_dict() for volunteer in volunteers])
@@ -25,12 +32,5 @@ def assign_event():
 
     return jsonify({"error": "Volunteer not found"}), 404
 
-@matching_bp.route('/', methods=['GET', 'POST'])
-def volunteer_matching():
-    if session.get('signed_in') is None or session["signed_in"] == False:
-        return render_template("index.html")
-    if request.method == 'POST':
-        # Handle POST request
-        pass
-    return render_template('volunteer_matching.html')
+
 

@@ -38,6 +38,6 @@ def profile():
             'availability': availability
         })
 
-        return jsonify({'message': 'Profile updated successfully'})
+        return jsonify({'message': 'Profile updated successfully'}), 200
 
     return render_template('profile.html')

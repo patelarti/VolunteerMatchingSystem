@@ -160,6 +160,44 @@ class AuthTest(unittest.TestCase):
         self.assertIn(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
+    def test_reset_send_post_request_with_matching_password_and_existing_email(self):
+        data = {
+            "email": "patelarti91@gmail.com",
+            "newPassword": "1234",
+            "confirmNewPassword": "1234"
+
+        }
+        response = self.tester.post('/reset', json=data)
+        val = '{"message":"Password reset successfully"}\n'
+        # print(response.data)
+        self.assertEqual(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
+    def test_reset_send_post_request_with_non_matching_password_and_existing_email(self):
+        data = {
+            "email": "patelarti91@gmail.com",
+            "newPassword": "1111",
+            "confirmNewPassword": "1234"
+
+        }
+        response = self.tester.post('/reset', json=data)
+        val = '{"message":"Passwords do not match"}\n'
+        # print(response.data)
+        self.assertEqual(str.encode(val), response.data)
+        self.assertEqual(400, response.status_code)
+
+    def test_reset_send_post_request_with_matching_password_and_non_existing_email(self):
+        data = {
+            "email": "wrong_email_abc@gmail.com",
+            "newPassword": "1234",
+            "confirmNewPassword": "1234"
+
+        }
+        response = self.tester.post('/reset', json=data)
+        val = '{"message":"Email not found"}\n'
+        # print(response.data)
+        self.assertEqual(str.encode(val), response.data)
+        self.assertEqual(404, response.status_code)
 
 
 if __name__ == "__main__":

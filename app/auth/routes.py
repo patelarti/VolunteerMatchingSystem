@@ -99,7 +99,7 @@ def reset():
         email = data.get('email')
         new_password = data.get('newPassword')
         confirm_new_password = data.get('confirmNewPassword')
-        print("data==>",data)
+
 
         if new_password != confirm_new_password:
             return jsonify({'message': 'Passwords do not match'}), 400
@@ -114,6 +114,4 @@ def reset():
 
         return jsonify({'message': 'Password reset successfully'}), 200
     email = request.args.get('email')
-    print("email get==>", email)
-
     return render_template('reset.html', email=email)

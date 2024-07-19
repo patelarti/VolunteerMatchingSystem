@@ -9,6 +9,24 @@ class VolunteerMatchingTest(unittest.TestCase):
     def setUp(self):
         self.tester = app.test_client(self)
 
+    def test_user_not_signed_in(self):
+        with self.tester.session_transaction() as sess:
+            sess['signed_in'] = False
+            #sess['email'] = 'patelarti91@gmail.com'
+
+        response = self.tester.get('/matching/')
+        self.assertIn(str.encode("Welcome! Please login to continue."), response.data)
+
+    def test_user_signed_in(self):
+        with self.tester.session_transaction() as sess:
+            sess['signed_in'] = True
+            sess['email'] = 'patelarti91@gmail.com'
+
+        response = self.tester.get('/matching/')
+        val = 'Volunteer Info'
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
     def test_get_volunteers_gets_back_volunteer_dict(self):
         response = self.tester.get('/matching/api/volunteers')
         volunteer_dict = [volunteer.to_dict() for volunteer in volunteers]

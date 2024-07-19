@@ -6,7 +6,5 @@ history_bp = Blueprint('history', __name__)
 def volunteer_history():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    if request.method == 'POST':
-        # Handle POST request
-        pass
+
     return render_template('volunteer_history.html')
