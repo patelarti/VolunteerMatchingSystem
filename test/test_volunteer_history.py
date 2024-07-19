@@ -1,9 +1,9 @@
 import unittest
-import sys
-sys.path.append("../VolunteerMatch")
 from run import app
-from app.volunteer_matching.data import events, volunteers
-from flask import jsonify
+import sys
+
+sys.path.append("../VolunteerMatch")
+
 
 class VolunteerMatchingTest(unittest.TestCase):
     def setUp(self):
@@ -12,7 +12,6 @@ class VolunteerMatchingTest(unittest.TestCase):
     def test_user_not_signed_in(self):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = False
-            #sess['email'] = 'patelarti91@gmail.com'
 
         response = self.tester.get('/history/')
         self.assertIn(str.encode("Welcome! Please login to continue."), response.data)
@@ -21,6 +20,7 @@ class VolunteerMatchingTest(unittest.TestCase):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = 'patelarti91@gmail.com'
+            sess['username'] = sess['email'].split('@')[0]
 
         response = self.tester.get('/history/')
         val = 'Volunteer Participation History'
@@ -28,9 +28,5 @@ class VolunteerMatchingTest(unittest.TestCase):
         self.assertEqual(200, response.status_code)
 
 
-
-
 if __name__ == "__main__":
     unittest.main()
-
-

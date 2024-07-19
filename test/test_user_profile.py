@@ -1,8 +1,9 @@
 import unittest
-import sys
-sys.path.append("../VolunteerMatch")
 from run import app
-from flask import jsonify
+import sys
+
+sys.path.append("../VolunteerMatch")
+
 
 class AuthTest(unittest.TestCase):
     def setUp(self):
@@ -11,7 +12,6 @@ class AuthTest(unittest.TestCase):
     def test_user_not_signed_in(self):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = False
-            #sess['email'] = 'patelarti91@gmail.com'
 
         response = self.tester.get('/profile/')
         self.assertIn(str.encode("Welcome! Please login to continue."), response.data)
@@ -20,6 +20,7 @@ class AuthTest(unittest.TestCase):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = 'patelarti91@gmail.com'
+            sess['username'] = sess['email'].split('@')[0]
 
         response = self.tester.get('/profile/')
         val = 'User Profile Management'
@@ -33,10 +34,10 @@ class AuthTest(unittest.TestCase):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = data['email']
+            sess['username'] = sess['email'].split('@')[0]
 
         response = self.tester.post('/profile/', json=data)
         val = '{"message":"User not found"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(404, response.status_code)
 
@@ -47,14 +48,13 @@ class AuthTest(unittest.TestCase):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = data['email']
+            sess['username'] = sess['email'].split('@')[0]
 
         response = self.tester.post('/profile/', json=data)
         val = '{"message":"Profile updated successfully"}\n'
-        # print(response.data)
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(200, response.status_code)
 
+
 if __name__ == "__main__":
     unittest.main()
-
-

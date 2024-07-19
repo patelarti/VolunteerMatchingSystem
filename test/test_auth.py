@@ -56,20 +56,22 @@ class AuthTest(unittest.TestCase):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = 'patelarti91@gmail.com'
+            sess['username'] = sess['email'].split('@')[0]
 
         response = self.tester.get('/base')
-        self.assertIn(str.encode(sess['email']), response.data)
+        self.assertIn(str.encode(sess['username']), response.data)
 
     def test_logout(self):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
             sess['email'] = 'patelarti91@gmail.com'
+            sess['username'] = sess['email'].split('@')[0]
 
         self.tester.get('/logout')
 
         with self.tester.session_transaction() as sess:
             self.assertEqual(sess['signed_in'], False)
-            self.assertEqual(sess['email'], "")
+            self.assertEqual(sess['username'], "")
 
     def test_register_send_get_request(self):
         response = self.tester.get('/register')

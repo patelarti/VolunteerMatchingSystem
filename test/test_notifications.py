@@ -1,28 +1,35 @@
 import unittest
+from run import app
+
 import sys
 
 sys.path.append("../VolunteerMatch")
-from run import app
-from flask import jsonify
+
 
 class NotificationsTest(unittest.TestCase):
+
+    def setUp(self):
+        self.tester = app.test_client(self)
+
     def test_notification_signed_in_false(self):
-        tester = app.test_client(self)
-        with tester.session_transaction() as sess:
+        with self.tester.session_transaction() as sess:
             sess['signed_in'] = False
 
-            response = tester.get('/notifications/')
-            self.assertEqual(response.status_code, 200)
+        response = self.tester.get('/notifications/')
+        val = 'Welcome! Please login to continue.'
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
 
     def test_notification_signed_in_true(self):
-        tester = app.test_client(self)
-
-        with tester.session_transaction() as sess:
+        with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
+            sess['email'] = 'patelarti91@gmail.com'
+            sess['username'] = sess['email'].split('@')[0]
 
-        response = tester.get('/notifications/')
-        self.assertEqual(response.status_code, 200)
-
+        response = self.tester.get('/notifications/')
+        val = 'Your Notifications'
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
 
 
 if __name__ == "__main__":
