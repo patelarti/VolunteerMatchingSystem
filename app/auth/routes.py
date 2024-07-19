@@ -113,5 +113,7 @@ def reset():
         print("resetting password")
 
         return jsonify({'message': 'Password reset successfully'}), 200
+    email = request.args.get('email')
+    print("email get==>", email)
 
-    return render_template('reset.html')
+    return render_template('reset.html', email=email)
