@@ -49,7 +49,7 @@ def logout():
     return render_template("index.html")
 
 
-@auth_bp.route('/register', methods=['POST'])
+@auth_bp.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         data = request.get_json()
@@ -73,7 +73,7 @@ def register():
 
         return jsonify({'message': 'User registered successfully'}), 201
 
-    # return render_template('register.html')
+    return render_template('register.html')
 
 @auth_bp.route('/forgot', methods=['GET', 'POST'])
 def forgot():
