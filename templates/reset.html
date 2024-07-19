@@ -13,12 +13,7 @@
     <title>Reset Password - We Love Volunteering</title>
 </head>
 <body>
-<!--    <div class="theme-toggle">-->
-<!--        <label class="switch">-->
-<!--            <input type="checkbox" id="theme-switch">-->
-<!--            <span class="slider round"></span>-->
-<!--        </label>-->
-<!--    </div>-->
+
     <div class="container">
         <div class="login__content">
             <div class="title-container">
@@ -26,28 +21,31 @@
             </div>
             <div class="image-container">
                 <img src="../static/img/vol7.png" alt="reset password image" class="login__img">
-                <form action="/" method="POST" class="login__form" id="reset-form">
+                <form class="login__form" id="reset-form">
                     <div>
                         <h1 class="login__title">Reset Password</h1>
                         <p class="login__description">Enter your new password.</p>
                     </div>
                     <div>
                         <div class="login__inputs">
+                            <input type="hidden" id="input-email" name="email" value="{{ email }}">
                             <div>
                                 <label for="new-password" class="login__label">New Password</label>
                                 <div class="login__box">
                                     <input type="password" placeholder="Enter your new password" required class="login__input" id="new-password">
-                                    <i class="ri-eye-off-line login__eye" id="input-icon-new"></i>
+<!--                                    <i class="ri-eye-off-line login__eye" id="input-icon-new"></i>-->
+
                                 </div>
                             </div>
                             <div>
                                 <label for="confirm-new-password" class="login__label">Confirm New Password</label>
                                 <div class="login__box">
                                     <input type="password" placeholder="Confirm your new password" required class="login__input" id="confirm-new-password">
-                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm-new"></i>
+<!--                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm-new"></i>-->
                                 </div>
                             </div>
                         </div>
+                        <span id="iconEye">👁️</span>
                     </div>
                     <div>
                         <div class="login__buttons">
@@ -56,11 +54,123 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
 
-    <!--=============== MAIN JS ===============-->
-    <script src="../static/js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const iconEye = document.getElementById('iconEye');
+            const newPasswordInput = document.getElementById('new-password');
+            const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+
+            iconEye.addEventListener('click', () => {
+                const type = newPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                newPasswordInput.setAttribute('type', type);
+                confirmNewPasswordInput.setAttribute('type', type);
+                iconEye.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+
+            document.getElementById('reset-form').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const email = document.getElementById('input-email').value;
+                const newPassword = newPasswordInput.value;
+                const confirmNewPassword = confirmNewPasswordInput.value;
+
+                try {
+                    const response = await fetch('/reset', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, newPassword, confirmNewPassword }),
+                    });
+
+                    if (response.ok) {
+                        alert('Password reset successfully');
+                        window.location.href = '/';
+                    } else {
+                        const data = await response.json();
+                        alert(data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+<!--    &lt;!&ndash;=============== REMIXICONS ===============&ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">-->
+
+<!--    &lt;!&ndash;=============== CSS ===============&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="../static/css/styles.css">-->
+
+<!--    <title>Reset Password - We Love Volunteering</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;    <div class="theme-toggle">&ndash;&gt;-->
+<!--&lt;!&ndash;        <label class="switch">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="checkbox" id="theme-switch">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="slider round"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;        </label>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <div class="container">-->
+<!--        <div class="login__content">-->
+<!--            <div class="title-container">-->
+<!--                <h1 class="main-title"><span>I</span><br><span>LOVE</span><br><span>VOLUNTEERING</span></h1>-->
+<!--            </div>-->
+<!--            <div class="image-container">-->
+<!--                <img src="../static/img/vol7.png" alt="reset password image" class="login__img">-->
+<!--                <form action="/" method="POST" class="login__form" id="reset-form">-->
+<!--                    <div>-->
+<!--                        <h1 class="login__title">Reset Password</h1>-->
+<!--                        <p class="login__description">Enter your new password.</p>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <div class="login__inputs">-->
+<!--                            <div>-->
+<!--                                <label for="new-password" class="login__label">New Password</label>-->
+<!--                                <div class="login__box">-->
+<!--                                    <input type="password" placeholder="Enter your new password" required class="login__input" id="new-password">-->
+<!--                                    <i class="ri-eye-off-line login__eye" id="input-icon-new"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <label for="confirm-new-password" class="login__label">Confirm New Password</label>-->
+<!--                                <div class="login__box">-->
+<!--                                    <input type="password" placeholder="Confirm your new password" required class="login__input" id="confirm-new-password">-->
+<!--                                    <i class="ri-eye-off-line login__eye" id="input-icon-confirm-new"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <div class="login__buttons">-->
+<!--                            <button type="submit" class="login__button">Reset Password</button>-->
+<!--                            <a href="\" class="login__button login__button-ghost">Back to Login</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash;=============== MAIN JS ===============&ndash;&gt;-->
+<!--    <script src="../static/js/main.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
