@@ -114,6 +114,39 @@ class AuthTest(unittest.TestCase):
             self.assertEqual(sess['signed_in'], True)
             self.assertEqual(sess['email'], "abc@gmail.com")
 
+    def test_forgot_send_get_request(self):
+
+        response = self.tester.get('/forgot')
+        val = 'Forgot Password'
+        # print(response.data)
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
+    def test_forgot_send_post_request_with_existing_user(self):
+        data = {
+            "email": "patelarti91@gmail.com",
+        }
+
+        response = self.tester.post('/forgot', json=data)
+        val = '{"message":"Password reset link sent to your email"}\n'
+        # print(response.data)
+        self.assertEqual(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
+    def test_forgot_send_post_request_with_not_existing_user(self):
+        data = {
+            "email": "abc@gmail.com",
+        }
+
+        response = self.tester.post('/forgot', json=data)
+        val = '{"message":"Email not found"}\n'
+        # print(response.data)
+        self.assertEqual(str.encode(val), response.data)
+        self.assertEqual(404, response.status_code)
+
+
+
+
 
 
 if __name__ == "__main__":

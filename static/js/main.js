@@ -45,6 +45,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
 
 
 document.getElementById('reset-form').addEventListener('submit', function(event) {
+
     event.preventDefault();
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -62,7 +63,7 @@ document.getElementById('reset-form').addEventListener('submit', function(event)
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
+//        alert(data.message);
         if (data.message === 'Password reset successfully') {
             window.location.href = '/login';
         }
