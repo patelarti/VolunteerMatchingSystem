@@ -71,6 +71,14 @@ class AuthTest(unittest.TestCase):
             self.assertEqual(sess['signed_in'], False)
             self.assertEqual(sess['email'], "")
 
+    def test_register_send_get_request(self):
+
+        response = self.tester.get('/register')
+        val = 'Create your account. It\'s free and only takes a minute.'
+        # print(response.data)
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
+
     def test_register_password_do_not_match(self):
         data = {
             "email": "test@gmail.com",
@@ -144,8 +152,13 @@ class AuthTest(unittest.TestCase):
         self.assertEqual(str.encode(val), response.data)
         self.assertEqual(404, response.status_code)
 
+    def test_reset_send_get_request(self):
 
-
+        response = self.tester.get('/reset')
+        val = 'Reset Password'
+        # print(response.data)
+        self.assertIn(str.encode(val), response.data)
+        self.assertEqual(200, response.status_code)
 
 
 
