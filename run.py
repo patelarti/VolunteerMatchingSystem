@@ -5,9 +5,30 @@ from app.events_management.routes import events_bp
 from app.volunteer_matching.routes import matching_bp
 from app.notifications.routes import notifications_bp
 from app.volunteer_history.routes import history_bp
+# import psycopg2
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "4567"
+
+# # Connect to the database
+# conn = psycopg2.connect(database="volunteers_db", user="postgres",
+#                         password="arti", host="localhost", port="5432")
+#
+# # create a cursor
+# cur = conn.cursor()
+#
+#
+# # Select all products from the table
+# cur.execute('''SELECT * from "UserCredentials";''')
+#
+# # Fetch the data
+# data = cur.fetchall()
+# print("data from table==>",data)
+# # close the cursor and connection
+# cur.close()
+# conn.close()
+
+
 
 app.register_blueprint(auth_bp, url_prefix='/')
 app.register_blueprint(profile_bp, url_prefix='/profile')

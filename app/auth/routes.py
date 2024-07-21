@@ -1,9 +1,14 @@
 from flask import render_template, request, jsonify, redirect, url_for, session, Blueprint
 import bcrypt
+import psycopg2
+import uuid
+
 
 auth_bp = Blueprint('auth', __name__)
 
-
+# Connect to the database
+conn = psycopg2.connect(database="volunteers_db", user="postgres",
+                        password="arti", host="localhost", port="5432")
 
 testUsers = [
     {'email': 'patelarti91@gmail.com', 'password': bcrypt.hashpw('1111'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
@@ -13,6 +18,8 @@ testUsers = [
     { 'email': 'michael.brown@example.com', 'password': bcrypt.hashpw('password3'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') },
     { 'email': 'emily.jones@example.com', 'password': bcrypt.hashpw('password4'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8') }
 ]
+
+
 
 @auth_bp.route('/')
 def index():
@@ -24,6 +31,13 @@ def login():
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
+
+        # command = f"SELECT * FROM usercredentials where email='{email}';"
+        # cursor = conn.cursor()
+        # cursor.execute(command)
+        # table_data = cursor.fetchone()
+        # cursor.close()
+        # print(table_data)
 
         user = next((user for user in testUsers if user['email'] == email), None)
         if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
@@ -62,6 +76,7 @@ def register():
         password = data.get('password')
         confirm_password = data.get('confirmPassword')
         print("data==>",data)
+
         if password != confirm_password:
             return jsonify({'message': 'Passwords do not match'}), 400
 
@@ -71,10 +86,24 @@ def register():
 
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         testUsers.append({'email': email, 'password': hashed_password})
+        print("hashed_password==>",len(hashed_password))
 
         session["signed_in"] = True
 
         session["email"] = email
+        session['username'] = session['email'].split('@')[0]
+
+        unique_id = uuid.uuid4()
+        session["user_id"] = unique_id
+        print("unique_id==>", unique_id)
+
+        command = f"INSERT INTO usercredentials (id, username, email, password) VALUES (2, '{session['username']}', '{session['email']}','{hashed_password}');"
+        cursor = conn.cursor()
+        cursor.execute(command)
+        conn.commit()
+        # table_data = cursor.fetchone()
+        cursor.close()
+        # print(table_data)
 
         return jsonify({'message': 'User registered successfully'}), 201
 
