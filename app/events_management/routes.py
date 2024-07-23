@@ -1,7 +1,13 @@
 
 from flask import Blueprint, render_template, url_for, request, redirect, session
+import psycopg2
 
 events_bp = Blueprint('events', __name__)
+
+
+# Connect to the database
+conn = psycopg2.connect(database="volunteers_db", user="postgres",
+                        password="arti", host="localhost", port="5432")
 
 
 @events_bp.route('/', methods=['POST', 'GET'])
@@ -20,6 +26,25 @@ def display_event():
     required_skills = request.args.getlist('requiredSkills')  # handle multiple values
     urgency = request.args.get('urgency')
     event_date = request.args.get('eventDate')
+
+    formatted_required_skills = ""
+    for skill in required_skills:
+        formatted_required_skills += skill + ","
+
+    formatted_event_date = "".join(str(event_date).split('-'))
+    print(formatted_event_date)
+    # print("required_skills==>", str(required_skills))
+    cursor = conn.cursor()
+
+    command = f'''INSERT INTO event_details(
+                    event_name, description, location, required_skills, urgency, event_date, user_id)
+                    VALUES('{event_name}','{event_description}','{event_location}','{formatted_required_skills}','{urgency}',date({formatted_event_date}::TEXT),{session["user_id"]});'''
+
+    cursor.execute(command)
+    # db_password = cursor.fetchone()
+    cursor.close()
+    conn.commit()
+
 
     # For demonstration, print the values
     print(f"Event Name: {event_name}")

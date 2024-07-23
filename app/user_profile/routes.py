@@ -1,9 +1,14 @@
 from flask import render_template, request, jsonify, session, Blueprint
 # from app.user_profile import profile_bp
+import psycopg2
 import bcrypt
 
 from app.auth.routes import testUsers  # Assuming testUsers is defined in app.auth.routes
 profile_bp = Blueprint('profile', __name__)
+
+# Connect to the database
+conn = psycopg2.connect(database="volunteers_db", user="postgres",
+                        password="arti", host="localhost", port="5432")
 
 @profile_bp.route('/', methods=['GET', 'POST'])
 def profile():
@@ -23,22 +28,40 @@ def profile():
         preferences = data.get('preferences')
         availability = data.get('availability')
 
-        user = next((user for user in testUsers if user['email'] == email), None)
-        if not user:
-            return jsonify({'message': 'User not found'}), 404
+        formatted_availability_date = "".join(str(availability).split('-'))
+        # INSERT
+        # INTO
+        # public.user_profile(
+        #     user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability)
+        # VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        cursor = conn.cursor()
 
-        user.update({
-            'fullName': full_name,
-            'dob': dob,
-            'address1': address1,
-            'address2': address2,
-            'city': city,
-            'state': state,
-            'zip': zip_code,
-            'skills': skills,
-            'preferences': preferences,
-            'availability': availability
-        })
+        command = f'''INSERT INTO user_profile(user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability)
+                    VALUES({session["user_id"]}, '{full_name}', '{address1}', '{address2}', '{city}', '{state}', '{zip_code}', '{skills}', '{preferences}', date({formatted_availability_date}::TEXT));'''
+
+        print(command)
+        cursor.execute(command)
+        # db_password = cursor.fetchone()
+        cursor.close()
+        conn.commit()
+        conn.close()
+
+        # user = next((user for user in testUsers if user['email'] == email), None)
+        # if not user:
+        #     return jsonify({'message': 'User not found'}), 404
+        #
+        # user.update({
+        #     'fullName': full_name,
+        #     'dob': dob,
+        #     'address1': address1,
+        #     'address2': address2,
+        #     'city': city,
+        #     'state': state,
+        #     'zip': zip_code,
+        #     'skills': skills,
+        #     'preferences': preferences,
+        #     'availability': availability
+        # })
 
         return jsonify({'message': 'Profile updated successfully'}), 200
 

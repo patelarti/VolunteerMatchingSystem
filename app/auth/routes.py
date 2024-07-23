@@ -1,7 +1,6 @@
 from flask import render_template, request, jsonify, redirect, url_for, session, Blueprint
 import bcrypt
 import psycopg2
-import uuid
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -38,23 +37,24 @@ def login():
         password = data.get('password')
         cursor = conn.cursor()
 
-        command = f"SELECT password FROM usercredentials where email='{email}';"
+        command = f"SELECT id, password FROM usercredentials where email='{email}';"
 
         cursor.execute(command)
-        db_password = cursor.fetchone()
+        db_id_password = cursor.fetchone()
         cursor.close()
-        # print(db_password)
+        # print(db_id_password)
 
         # user = next((user for user in testUsers if user['email'] == email), None)
         # if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-        if not db_password or not bcrypt.checkpw(password.encode('utf-8'), db_password[0].encode('utf-8')):
+        if not db_id_password or not bcrypt.checkpw(password.encode('utf-8'), db_id_password[1].encode('utf-8')):
             session["signed_in"] = False
             return jsonify({'message': 'Invalid email or password'}), 401
 
         session['signed_in'] = True
         session['email'] = email
         session['username'] = session['email'].split('@')[0]
-        # print("session['username']====>", session['username'])
+        session['user_id'] = db_id_password[0]
+        # print("session['user_id']====>", session['user_id'])
 
         return jsonify({'message': 'Login successful'}), 200
         # return "login success"
@@ -105,9 +105,13 @@ def register():
         session["email"] = email
         session['username'] = session['email'].split('@')[0]
 
+
         command = f"INSERT INTO usercredentials (username, email, password) VALUES ('{session['username']}', '{session['email']}','{hashed_password}');"
         cursor.execute(command)
         conn.commit()
+        cursor.execute(f"SELECT id FROM usercredentials WHERE email='{session['email']}'")
+        session['user_id'] = cursor.fetchone()[0]
+        print(" session['user_id']==>", session['user_id'])
         cursor.close()
 
         return jsonify({'message': 'User registered successfully'}), 201
@@ -166,10 +170,9 @@ def reset():
         # print("resetting password")
 
         command = f"UPDATE usercredentials SET password = '{hashed_password}' where email='{email}';"
-
         cursor.execute(command)
-
         cursor.close()
+        conn.commit()
 
         return jsonify({'message': 'Password reset successfully'}), 200
     email = request.args.get('email')
