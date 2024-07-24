@@ -51,6 +51,12 @@
                                     <i class="ri-eye-off-line login__eye" id="input-icon-confirm"></i>
                                 </div>
                             </div>
+
+                            <div class="login__check">
+                                <input type="checkbox" class="login__check-input" id="admin-or-user">
+                                <label for="admin-or-user" class="login__check-label">Admin ?</label>
+                            </div>
+
                         </div>
                     </div>
                     <div>
@@ -67,18 +73,26 @@
     <!--=============== MAIN JS ===============-->
     <script src="../static/js/main.js"></script>
     <script>
+
+
         document.getElementById('register-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             const email = document.getElementById('input-email').value;
             const password = document.getElementById('input-pass').value;
             const confirmPassword = document.getElementById('input-confirm-pass').value;
+            const adminOrUser = document.getElementById('admin-or-user');
+            let is_admin = false;
+
+            if (adminOrUser.checked == true) {
+                is_admin = true;
+            }
 
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, confirmPassword }),
+                body: JSON.stringify({ email, password, confirmPassword, is_admin }),
             });
 
             if (response.ok) {

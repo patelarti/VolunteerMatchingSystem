@@ -81,9 +81,11 @@ def logout():
 def register():
     if request.method == 'POST':
         data = request.get_json()
+        print("data==>",data)
         email = data.get('email')
         password = data.get('password')
         confirm_password = data.get('confirmPassword')
+        admin_or_user = data.get('is_admin')     # True -> admin
         cursor = conn.cursor()
 
         if password != confirm_password:
@@ -104,9 +106,10 @@ def register():
 
         session["email"] = email
         session['username'] = session['email'].split('@')[0]
+        session['is_admin'] = admin_or_user
 
 
-        command = f"INSERT INTO usercredentials (username, email, password) VALUES ('{session['username']}', '{session['email']}','{hashed_password}');"
+        command = f"INSERT INTO usercredentials (username, email, password, is_admin) VALUES ('{session['username']}', '{session['email']}','{hashed_password}', {session['is_admin']});"
         cursor.execute(command)
         conn.commit()
         cursor.execute(f"SELECT id FROM usercredentials WHERE email='{session['email']}'")
