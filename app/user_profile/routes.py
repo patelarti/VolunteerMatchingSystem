@@ -83,16 +83,15 @@ def profile():
         full_name = table_data[1]
         address1, address2 = table_data[2], table_data[3]
         city, state, zipcode = table_data[4], table_data[5], table_data[6]
-        preferences = table_data[8]
-        # skills, preferences, availability = table_data[7], table_data[8], table_data[9]
+        skills, preferences, availability = table_data[7], table_data[8], table_data[9]
+        skills = skills.split(',')
+        print("skills==>", skills)
     else:
         full_name = ""
         address1, address2 = "", ""
-        city, state, zipcode = "", "", ""
-        preferences = ""
-        # skills, preferences, availability = table_data[7], table_data[8], table_data[9]
+        city, state, zipcode = "", "Select your state", ""
+        skills, preferences, availability = [], "", ""
 
     return render_template('profile.html', username=session['username'], full_name=full_name,
-                           preferences=preferences,
-                           address1=address1, address2=address2, city=city, zipcode=zipcode)
+                           preferences=preferences, address1=address1, address2=address2, city=city, state=state, zipcode=zipcode, availability=availability, skills=skills)
 
