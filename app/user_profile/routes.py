@@ -28,18 +28,17 @@ def profile():
         preferences = data.get('preferences')
         availability = data.get('availability')
 
+        formatted_skills = ""
+        for skill in skills:
+            formatted_skills += skill + ","
+
         print(f"profile data==>{data}")
 
         formatted_availability_date = "".join(str(availability).split('-'))
-        # INSERT
-        # INTO
-        # public.user_profile(
-        #     user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability)
-        # VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         cursor = conn.cursor()
 
         command = f'''INSERT INTO user_profile(user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability)
-                    VALUES({session["user_id"]}, '{full_name}', '{address1}', '{address2}', '{city}', '{state}', '{zip_code}', '{skills}', '{preferences}', date({formatted_availability_date}::TEXT));'''
+                    VALUES({session["user_id"]}, '{full_name}', '{address1}', '{address2}', '{city}', '{state}', '{zip_code}', '{formatted_skills}', '{preferences}', date({formatted_availability_date}::TEXT));'''
 
         print(command)
         cursor.execute(command)

@@ -314,30 +314,10 @@
     <!--=============== MAIN JS ===============-->
     <script src="../static/js/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const email = 'rahmaaloui3199@gmail.com'; // Change this to dynamically fetch the email if needed
-            fetch(`/api/user?email=${email}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('full-name').value = data.fullName;
-                    document.getElementById('dob').value = data.dob;
-                    document.getElementById('address1').value = data.address1;
-                    document.getElementById('address2').value = data.address2;
-                    document.getElementById('city').value = data.city;
-                    document.getElementById('state').value = data.state;
-                    document.getElementById('zip').value = data.zip;
-                    document.getElementById('skills').value = data.skills;
-                    document.getElementById('preferences').value = data.preferences;
-                    document.getElementById('availability').value = data.availability;
-                })
-                .catch(error => console.error('Error fetching user data:', error));
-        });
-
         document.getElementById('profile-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = {
-                email: 'rahmaaloui3199@gmail.com', // Change this to dynamically fetch the email if needed
                 fullName: document.getElementById('full-name').value,
                 dob: document.getElementById('dob').value,
                 address1: document.getElementById('address1').value,
@@ -349,9 +329,9 @@
                 preferences: document.getElementById('preferences').value,
                 availability: document.getElementById('availability').value
             };
-<!--            console.log("formData==>",formData)-->
+            console.log("formData==>",formData)
 
-            fetch('/api/updateProfile', {
+            fetch('/profile/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
