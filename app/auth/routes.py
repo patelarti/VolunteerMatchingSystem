@@ -37,7 +37,7 @@ def login():
         password = data.get('password')
         cursor = conn.cursor()
 
-        command = f"SELECT id, password FROM usercredentials where email='{email}';"
+        command = f"SELECT id, password, is_admin FROM usercredentials where email='{email}';"
 
         cursor.execute(command)
         db_id_password = cursor.fetchone()
@@ -54,6 +54,7 @@ def login():
         session['email'] = email
         session['username'] = session['email'].split('@')[0]
         session['user_id'] = db_id_password[0]
+        session['is_admin'] = db_id_password[2]
         # print("session['user_id']====>", session['user_id'])
 
         return jsonify({'message': 'Login successful'}), 200
@@ -108,14 +109,20 @@ def register():
         session['username'] = session['email'].split('@')[0]
         session['is_admin'] = admin_or_user
 
-
         command = f"INSERT INTO usercredentials (username, email, password, is_admin) VALUES ('{session['username']}', '{session['email']}','{hashed_password}', {session['is_admin']});"
         cursor.execute(command)
-        conn.commit()
+        # conn.commit()
+
         cursor.execute(f"SELECT id FROM usercredentials WHERE email='{session['email']}'")
         session['user_id'] = cursor.fetchone()[0]
+
+        command = (f"INSERT INTO notifications (user_id, msg, notification_type) "
+                   f"VALUES ({session['user_id']}, '{session['username']} signed up!', {True});")
+        cursor.execute(command)
+
         print(" session['user_id']==>", session['user_id'])
         cursor.close()
+        conn.commit()
 
         return jsonify({'message': 'User registered successfully'}), 201
 

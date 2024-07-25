@@ -28,8 +28,8 @@ def display_event():
     event_date = request.args.get('eventDate')
 
     formatted_required_skills = ""
-    for skill in required_skills:
-        formatted_required_skills += skill + ","
+    for i, skill in enumerate(required_skills):
+        formatted_required_skills += skill + ("," if i < len(required_skills) - 1 else "")
 
     formatted_event_date = "".join(str(event_date).split('-'))
     print(formatted_event_date)
