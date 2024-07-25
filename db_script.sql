@@ -5,7 +5,7 @@
 -- Dumped from database version 16.3
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-07-23 20:17:55
+-- Started on 2024-07-24 19:54:42
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -54,6 +54,33 @@ ALTER TABLE public.event_details ALTER COLUMN event_id ADD GENERATED ALWAYS AS I
     NO MAXVALUE
     CACHE 1
 );
+
+
+--
+-- TOC entry 222 (class 1259 OID 16487)
+-- Name: notifications; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.notifications (
+    user_id bigint NOT NULL,
+    msg character varying(200) NOT NULL,
+    notification_type boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.notifications OWNER TO postgres;
+
+--
+-- TOC entry 4875 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: COLUMN notifications.notification_type; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.notifications.notification_type IS 'notification type - default - true that is for user sign up
+for admin - he need to update notification type to false to assign event.
+
+TRUE -> user sign up notif (admins will receive this)
+FALSE-> assign event notif (users will receive this)';
 
 
 --
@@ -138,29 +165,49 @@ ALTER TABLE public.volunteer_history ALTER COLUMN history_id ADD GENERATED ALWAY
 
 
 --
--- TOC entry 4859 (class 0 OID 16436)
+-- TOC entry 4865 (class 0 OID 16436)
 -- Dependencies: 218
 -- Data for Name: event_details; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.event_details (event_id, event_name, description, location, required_skills, urgency, event_date, user_id) FROM stdin;
 2	abc	description	new york	Event Planning,Public Speaking,Organization,Customer Service,	High	2024-07-30	4
+3	test 7-24 event	test description	test location	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Public Speaking,Organization,Customer Service,Lifting,Patience,Communication,Mentoring,Conflict Resolution,Creativity,Customer Service,	High	2024-07-31	4
 \.
 
 
 --
--- TOC entry 4860 (class 0 OID 16460)
+-- TOC entry 4869 (class 0 OID 16487)
+-- Dependencies: 222
+-- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.notifications (user_id, msg, notification_type) FROM stdin;
+17	test_notif signed up!	t
+17	You have been assigned the event abc on 2024-07-30	f
+17	You have been assigned the event test 7-24 event on 2024-07-31	f
+4	You have been assigned the event abc on 2024-07-30	f
+4	You have been assigned the event test 7-24 event on 2024-07-31	f
+17	You have been assigned the event abc on 2024-07-30	f
+18	ashutosh signed up!	t
+\.
+
+
+--
+-- TOC entry 4866 (class 0 OID 16460)
 -- Dependencies: 219
 -- Data for Name: user_profile; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_profile (user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability) FROM stdin;
-4	Arti Patel	3515 w hughes ln		Dickinson	TX	77359	active, talkative	birthday events	2024-07-23
+4	Arti Patel	new address		houston	TX	77007	Environmental Awareness,Public Speaking		2024-07-17
+17	test	3515 Hughes Ln		Dickinson	TX	77539	Environmental Awareness,Physical Fitness,Teamwork		2024-07-26
+18	Ashutosh Kumar	1234 Sadak Rd	Mohalla Nagar	Sheherpuri	TX	77007	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Public Speaking,Organization,Customer Service,Lifting,Patience,Communication,Mentoring,Conflict Resolution,Creativity,Customer Service	No holds bar	2024-07-24
 \.
 
 
 --
--- TOC entry 4856 (class 0 OID 16425)
+-- TOC entry 4862 (class 0 OID 16425)
 -- Dependencies: 215
 -- Data for Name: usercredentials; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -177,48 +224,57 @@ COPY public.usercredentials (id, username, email, password, is_admin) FROM stdin
 10	random8	random8@gmail.com	$2b$12$hYshgxGBZE9.1GiEzHszA.eUxoR/qreVuW1Y/4nsi3RxE2iufiWcC	f
 11	random9	random9@gmail.com	$2b$12$cgbzJS1dV0umHH3qnobo3uT.L2JW2n2MNtt3RJyLKeEfysETSqmfS	f
 12	random10	random10@gmail.com	$2b$12$LpdqMrwwcGZ7SVSkquUvWOtLvGayHRYvZliyKqXkooPrUT5gff9w6	t
+17	test_notif	test_notif@gmail.com	$2b$12$AL2pSaNGvtzvyVpcQkO4M.OyeJ5JAPU9PoqgYe1GcWwjlDHQAtFvK	f
+18	ashutosh	ashutosh@example.com	$2b$12$vlnBMzBF9fC9ZZw49UOdvukUUQP4qCX/OImUfhCXQvLp.ydhMWPJG	t
 \.
 
 
 --
--- TOC entry 4862 (class 0 OID 16472)
+-- TOC entry 4868 (class 0 OID 16472)
 -- Dependencies: 221
 -- Data for Name: volunteer_history; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.volunteer_history (history_id, user_id, event_id) FROM stdin;
+1	4	2
+2	4	3
+3	17	2
+4	17	3
+5	4	2
+6	4	3
+7	17	2
 \.
 
 
 --
--- TOC entry 4868 (class 0 OID 0)
+-- TOC entry 4876 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: event_details_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.event_details_event_id_seq', 2, true);
+SELECT pg_catalog.setval('public.event_details_event_id_seq', 7, true);
 
 
 --
--- TOC entry 4869 (class 0 OID 0)
+-- TOC entry 4877 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: usercredentials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usercredentials_id_seq', 12, true);
+SELECT pg_catalog.setval('public.usercredentials_id_seq', 18, true);
 
 
 --
--- TOC entry 4870 (class 0 OID 0)
+-- TOC entry 4878 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: volunteer_history_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.volunteer_history_history_id_seq', 1, false);
+SELECT pg_catalog.setval('public.volunteer_history_history_id_seq', 7, true);
 
 
 --
--- TOC entry 4704 (class 2606 OID 16433)
+-- TOC entry 4709 (class 2606 OID 16433)
 -- Name: usercredentials UserCredentials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -227,7 +283,7 @@ ALTER TABLE ONLY public.usercredentials
 
 
 --
--- TOC entry 4706 (class 2606 OID 16442)
+-- TOC entry 4711 (class 2606 OID 16442)
 -- Name: event_details event_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -236,7 +292,7 @@ ALTER TABLE ONLY public.event_details
 
 
 --
--- TOC entry 4708 (class 2606 OID 16476)
+-- TOC entry 4713 (class 2606 OID 16476)
 -- Name: volunteer_history volunteer_history_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -245,7 +301,7 @@ ALTER TABLE ONLY public.volunteer_history
 
 
 --
--- TOC entry 4711 (class 2606 OID 16482)
+-- TOC entry 4716 (class 2606 OID 16482)
 -- Name: volunteer_history event_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -254,7 +310,7 @@ ALTER TABLE ONLY public.volunteer_history
 
 
 --
--- TOC entry 4709 (class 2606 OID 16455)
+-- TOC entry 4714 (class 2606 OID 16455)
 -- Name: event_details user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -263,7 +319,7 @@ ALTER TABLE ONLY public.event_details
 
 
 --
--- TOC entry 4710 (class 2606 OID 16465)
+-- TOC entry 4715 (class 2606 OID 16465)
 -- Name: user_profile user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -272,7 +328,7 @@ ALTER TABLE ONLY public.user_profile
 
 
 --
--- TOC entry 4712 (class 2606 OID 16477)
+-- TOC entry 4717 (class 2606 OID 16477)
 -- Name: volunteer_history user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -280,7 +336,16 @@ ALTER TABLE ONLY public.volunteer_history
     ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.usercredentials(id);
 
 
--- Completed on 2024-07-23 20:17:56
+--
+-- TOC entry 4718 (class 2606 OID 16491)
+-- Name: notifications user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifications
+    ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.usercredentials(id);
+
+
+-- Completed on 2024-07-24 19:54:42
 
 --
 -- PostgreSQL database dump complete
