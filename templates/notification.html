@@ -51,12 +51,27 @@
         // Close notifications
         var close = document.getElementsByClassName("closebtn");
         var i;
+        console.log("close==>",close);
 
         for (i = 0; i < close.length; i++) {
+        console.log(close[i]);
           close[i].onclick = function(){
             var div = this.parentElement;
+            console.log("div==>",div.textContent);
             div.style.opacity = "0";
             setTimeout(function(){ div.style.display = "none"; }, 600);
+            const formData = {
+                notification_name : div.textContent
+            }
+            fetch('/notifications/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .catch(error => console.error('Error deleting notification:', error));
           }
         }
 

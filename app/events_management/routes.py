@@ -1,9 +1,7 @@
-
-from flask import Blueprint, render_template, url_for, request, redirect, session
+from flask import Blueprint, render_template, request, session
 import psycopg2
 
 events_bp = Blueprint('events', __name__)
-
 
 # Connect to the database
 conn = psycopg2.connect(database="volunteers_db", user="postgres",
@@ -14,11 +12,23 @@ conn = psycopg2.connect(database="volunteers_db", user="postgres",
 def event_management_form():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
+
+    if not session['is_admin']:
+        return render_template('base.html', email=session['email'], username=session['username'],
+                               is_admin=session['is_admin'])
+
     return render_template('event_management.html', email=session['email'], username=session['username'])
+
+
 @events_bp.route('/display.html', methods=['GET'])
 def display_event():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
+
+    if not session['is_admin']:
+        return render_template('base.html', email=session['email'], username=session['username'],
+                               is_admin=session['is_admin'])
+
     # Retrieve query parameters
     event_name = request.args.get('eventName')
     event_description = request.args.get('eventDescription')
@@ -33,7 +43,6 @@ def display_event():
 
     formatted_event_date = "".join(str(event_date).split('-'))
     print(formatted_event_date)
-    # print("required_skills==>", str(required_skills))
     cursor = conn.cursor()
 
     command = f'''INSERT INTO event_details(
@@ -41,12 +50,9 @@ def display_event():
                     VALUES('{event_name}','{event_description}','{event_location}','{formatted_required_skills}','{urgency}',date({formatted_event_date}::TEXT),{session["user_id"]});'''
 
     cursor.execute(command)
-    # db_password = cursor.fetchone()
     cursor.close()
     conn.commit()
 
-
-    # For demonstration, print the values
     print(f"Event Name: {event_name}")
     print(f"Event Description: {event_description}")
     print(f"Event Location: {event_location}")

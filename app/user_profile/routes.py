@@ -1,14 +1,12 @@
 from flask import render_template, request, jsonify, session, Blueprint
-# from app.user_profile import profile_bp
 import psycopg2
-import bcrypt
 
-from app.auth.routes import testUsers  # Assuming testUsers is defined in app.auth.routes
 profile_bp = Blueprint('profile', __name__)
 
 # Connect to the database
 conn = psycopg2.connect(database="volunteers_db", user="postgres",
                         password="arti", host="localhost", port="5432")
+
 
 @profile_bp.route('/', methods=['GET', 'POST'])
 def profile():
@@ -32,8 +30,6 @@ def profile():
         formatted_skills = ""
         for i, skill in enumerate(skills):
             formatted_skills += skill + ("," if i < len(skills) - 1 else "")
-
-        # print(f"profile data==>{data}")
 
         formatted_availability_date = "".join(str(availability).split('-'))
 
@@ -61,32 +57,9 @@ def profile():
         cursor.execute(command)
         cursor.close()
         conn.commit()
-        # conn.close()
-
-        # user = next((user for user in testUsers if user['email'] == email), None)
-        # if not user:
-        #     return jsonify({'message': 'User not found'}), 404
-        #
-        # user.update({
-        #     'fullName': full_name,
-        #     'dob': dob,
-        #     'address1': address1,
-        #     'address2': address2,
-        #     'city': city,
-        #     'state': state,
-        #     'zip': zip_code,
-        #     'skills': skills,
-        #     'preferences': preferences,
-        #     'availability': availability
-        # })
 
         return jsonify({'message': 'Profile updated successfully'}), 200
 
-    # return render_template('profile.html', username=session['username'])
-    # elif request.method == "GET":
-
-    # print(session['user_id'])
-    # print(f"session[userid] {session['user_id']}")
     cursor = conn.cursor()
     command = f"SELECT *\
                 FROM user_profile\
@@ -109,4 +82,5 @@ def profile():
         skills, preferences, availability = [], "", ""
 
     return render_template('profile.html', username=session['username'], full_name=full_name,
-                           preferences=preferences, address1=address1, address2=address2, city=city, state=state, zipcode=zipcode, availability=availability, skills=skills)
+                           preferences=preferences, address1=address1, address2=address2, city=city, state=state,
+                           zipcode=zipcode, availability=availability, skills=skills)

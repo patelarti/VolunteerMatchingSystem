@@ -1,4 +1,3 @@
-# noinspection PyInterpreter
 from flask import Blueprint, render_template, jsonify, request, session
 import psycopg2
 from .models import Volunteer, Event
@@ -11,10 +10,16 @@ conn = psycopg2.connect(database="volunteers_db", user="postgres",
 
 events = []
 volunteers = []
+
+
 @matching_bp.route('/', methods=['GET'])
 def volunteer_matching():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
+
+    if not session['is_admin']:
+        return render_template('base.html', email=session['email'], username=session['username'],
+                               is_admin=session['is_admin'])
 
     return render_template('volunteer_matching.html', username=session['username'])
 
@@ -24,11 +29,8 @@ def get_volunteers():
     cursor = conn.cursor()
 
     command = f"SELECT * FROM user_profile;"
-
     cursor.execute(command)
     table_data = cursor.fetchall()
-    # print("user_profile table data (from volunteer matching):", table_data)
-    # cursor.close()
 
     # create Volunteer objects and store in volunteer list
     for row in table_data:
@@ -42,8 +44,6 @@ def get_volunteers():
         record_idx = -1
         for volunteer in volunteers:
             record_idx += 1
-            # print(f"vol.email => {volunteer.to_dict()['email']}, email => {email}, equality => {volunteer.to_dict()['email'] == email}")
-            # this is O(n). Can we improve this?
             # volunteer below is a new object hence "if volunteer in volunteers" isn't working.
             if volunteer.to_dict()['email'] == email:
                 exists = True
@@ -71,17 +71,15 @@ def get_volunteers():
             preferences=row[8],
             availability=[row[9]],
             email=email,
-            phone="PHONE DUMMY DATA",
+            phone="(123)-456-7890",
             history=history
         )
         if exists:
-            # the history may have been updated, hence replace
+            # the history may have been updated, hence the need to replace
             volunteers[record_idx] = volunteer
         else:
             volunteers.append(volunteer)
     cursor.close()
-    # for volunteer in volunteers:
-    #     print(volunteer.to_dict())
 
     return jsonify([volunteer.to_dict() for volunteer in volunteers])
 
@@ -94,7 +92,6 @@ def get_events():
 
     cursor.execute(command)
     table_data = cursor.fetchall()
-    print("event_details table data (from volunteer matching):", table_data)
     cursor.close()
 
     # create Event objects and store in event list
@@ -131,23 +128,16 @@ def assign_event():
     event_name = data.get('event_name')
     cursor = conn.cursor()
 
-    # volunteer_name_db = 'Arti Patel'
-    # get user_id using volunteer_name
     command = f'''SELECT user_id FROM user_profile WHERE full_name = '{volunteer_name}';'''
     cursor.execute(command)
     user_id = cursor.fetchone()[0]
 
-    # event_name_db = 'Hiking'
-    # get event_id from event_name
     command = f'''SELECT event_id, event_date FROM event_details WHERE event_name = '{event_name}';'''
     cursor.execute(command)
     table_data = cursor.fetchone()
     event_id = table_data[0]
     event_date = table_data[1]
 
-    # print(f"user_id = {user_id}, event_id = {event_id}")
-
-    # create a new record in history_db
     command = f'''INSERT INTO volunteer_history(user_id, event_id) VALUES ('{user_id}', '{event_id}');'''
     cursor.execute(command)
 

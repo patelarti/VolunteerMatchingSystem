@@ -13,34 +13,37 @@
     <title>Dashboard - We Love Volunteering</title>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h2>Welcome, <span id="username" style="color:#44958f;">{{ username }}</span>!</h2>
-            <div class="header-icons">
-                <a href="/profile" class="icon-link">Profile <i class="ri-user-line"></i></a>
-                <a href="/notifications" class="icon-link">Notification <i class="ri-notification-line"></i></a>
-                <a href="/logout" class="icon-link">Logout <i class="ri-logout-box-line"></i></a>
+<div class="container">
+    <div class="header">
+        <h2>Welcome, <span id="username" style="color:#44958f;">{{ username }}</span>!</h2>
+        <div class="header-icons">
+            <a href="/profile" class="icon-link">Profile <i class="ri-user-line"></i></a>
+            <a href="/notifications" class="icon-link">Notification <i class="ri-notification-line"></i></a>
+            <a href="/logout" class="icon-link">Logout <i class="ri-logout-box-line"></i></a>
 
-            </div>
         </div>
-        <div class="content">
-            <div class="button-column">
-                <div class="button-container">
-                    <a href="/events" class="dashboard-button">Event Management Form</a>
-                    <a href="/matching" class="dashboard-button">Volunteer Matching Form</a>
-                    <a href="/history" class="dashboard-button">Volunteer History</a>
-                </div>
-            </div>
-            <div class="image-column">
-                <img src="../static/img/—Pngtree—learn to raise hands gesture_4729678.png" alt="Dashboard Image" class="dashboard-img">
-            </div>
-        </div>
-        <footer class="footer">
-            &copy; 2024 We Love Volunteering. All rights reserved.
-        </footer>
     </div>
+    <div class="content">
+        <div class="button-column">
+            <div class="button-container">
+                {% if is_admin %}
+                <a href="/events" class="dashboard-button">Event Management Form</a>
+                <a href="/matching" class="dashboard-button">Volunteer Matching Form</a>
+                {% endif %}
+                <a href="/history" class="dashboard-button">Volunteer History</a>
+            </div>
+        </div>
+        <div class="image-column">
+            <img src="../static/img/—Pngtree—learn to raise hands gesture_4729678.png" alt="Dashboard Image"
+                 class="dashboard-img">
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; 2024 We Love Volunteering. All rights reserved.
+    </footer>
+</div>
 
-    <!--=============== MAIN JS ===============-->
-    <script src="../static/js/main.js"></script>
+<!--=============== MAIN JS ===============-->
+<script src="../static/js/main.js"></script>
 </body>
 </html>

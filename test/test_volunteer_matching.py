@@ -1,7 +1,7 @@
 import unittest
 
 from run import app
-from app.volunteer_matching.data import events, volunteers
+from app.volunteer_matching.routes import events, volunteers
 import sys
 
 sys.path.append("../VolunteerMatch")

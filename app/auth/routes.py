@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify, redirect, url_for, session, Blueprint
+from flask import render_template, request, jsonify, session, Blueprint
 import bcrypt
 import psycopg2
 
@@ -8,24 +8,12 @@ auth_bp = Blueprint('auth', __name__)
 conn = psycopg2.connect(database="volunteers_db", user="postgres",
                         password="arti", host="localhost", port="5432")
 
-testUsers = [
-    {'email': 'patelarti91@gmail.com',
-     'password': bcrypt.hashpw('1111'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')},
-    {'email': 'rahmaaloui3199@gmail.com',
-     'password': bcrypt.hashpw('1234'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')},
-    {'email': 'john.doe@example.com',
-     'password': bcrypt.hashpw('password1'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')},
-    {'email': 'jane.smith@example.com',
-     'password': bcrypt.hashpw('password2'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')},
-    {'email': 'michael.brown@example.com',
-     'password': bcrypt.hashpw('password3'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')},
-    {'email': 'emily.jones@example.com',
-     'password': bcrypt.hashpw('password4'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')}
-]
-
 
 @auth_bp.route('/')
 def index():
+    if "signed_in" in session and session["signed_in"]:
+        return render_template("base.html", email=session['email'], username=session['username'],
+                               is_admin=session['is_admin'])
     return render_template('index.html')
 
 
@@ -42,10 +30,7 @@ def login():
         cursor.execute(command)
         db_id_password = cursor.fetchone()
         cursor.close()
-        # print(db_id_password)
 
-        # user = next((user for user in testUsers if user['email'] == email), None)
-        # if not user or not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
         if not db_id_password or not bcrypt.checkpw(password.encode('utf-8'), db_id_password[1].encode('utf-8')):
             session["signed_in"] = False
             return jsonify({'message': 'Invalid email or password'}), 401
@@ -55,10 +40,8 @@ def login():
         session['username'] = session['email'].split('@')[0]
         session['user_id'] = db_id_password[0]
         session['is_admin'] = db_id_password[2]
-        # print("session['user_id']====>", session['user_id'])
 
         return jsonify({'message': 'Login successful'}), 200
-        # return "login success"
     return render_template('index.html')
 
 
@@ -66,7 +49,9 @@ def login():
 def base():
     if session.get('signed_in') is None or session["signed_in"] == False:
         return render_template("index.html")
-    return render_template('base.html', email=session['email'], username=session['username'])
+
+    return render_template('base.html', email=session['email'], username=session['username'],
+                           is_admin=session['is_admin'])
 
 
 @auth_bp.route("/logout")
@@ -74,7 +59,6 @@ def logout():
     session['signed_in'] = False
     session['email'] = ''
     session['username'] = ''
-    # print("Logout....")
     return render_template("index.html")
 
 
@@ -82,11 +66,11 @@ def logout():
 def register():
     if request.method == 'POST':
         data = request.get_json()
-        print("data==>",data)
+        print("data==>", data)
         email = data.get('email')
         password = data.get('password')
         confirm_password = data.get('confirmPassword')
-        admin_or_user = data.get('is_admin')     # True -> admin
+        admin_or_user = data.get('is_admin')  # True -> admin
         cursor = conn.cursor()
 
         if password != confirm_password:
@@ -96,12 +80,10 @@ def register():
         cursor.execute(command)
         user_exists = len(cursor.fetchall())
 
-        # user_exists = next((user for user in testUsers if user['email'] == email), None)
         if user_exists > 0:
             return jsonify({'message': 'User already exists'}), 400
 
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        testUsers.append({'email': email, 'password': hashed_password})
 
         session["signed_in"] = True
 
@@ -111,7 +93,6 @@ def register():
 
         command = f"INSERT INTO usercredentials (username, email, password, is_admin) VALUES ('{session['username']}', '{session['email']}','{hashed_password}', {session['is_admin']});"
         cursor.execute(command)
-        # conn.commit()
 
         cursor.execute(f"SELECT id FROM usercredentials WHERE email='{session['email']}'")
         session['user_id'] = cursor.fetchone()[0]
@@ -142,7 +123,6 @@ def forgot():
         user = cursor.fetchone()
         cursor.close()
 
-        # user = next((user for user in testUsers if user['email'] == email), None)
         if not user:
             return jsonify({'message': 'Email not found'}), 404
 
@@ -171,13 +151,10 @@ def reset():
         cursor.execute(command)
         user = cursor.fetchone()
 
-        # user = next((user for user in testUsers if user['email'] == email), None)
         if not user:
             return jsonify({'message': 'Email not found'}), 404
 
         hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        # user['password'] = hashed_password
-        # print("resetting password")
 
         command = f"UPDATE usercredentials SET password = '{hashed_password}' where email='{email}';"
         cursor.execute(command)

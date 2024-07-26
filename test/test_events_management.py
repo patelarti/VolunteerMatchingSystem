@@ -7,8 +7,15 @@ from run import app
 
 
 class EventManagementTest(unittest.TestCase):
-    def setUp(self):
-        self.tester = app.test_client(self)
+    @classmethod
+    def setUpClass(cls):
+        cls.tester = app.test_client(cls)
+
+    # def setUp(self):
+    #     self.tester = app.test_client(self)
+    #
+    # def tearDown(self):
+    #     pass
 
     def test_event_management_signed_in_false(self):
         with self.tester.session_transaction() as sess:
@@ -22,8 +29,9 @@ class EventManagementTest(unittest.TestCase):
     def test_event_management_signed_in_true(self):
         with self.tester.session_transaction() as sess:
             sess['signed_in'] = True
-            sess['email'] = 'patelarti91@gmail.com'
+            sess['email'] = 'unit_test@domain.com'
             sess['username'] = sess['email'].split('@')[0]
+            sess['is_admin'] = True
 
         response = self.tester.get('/events/')
         val = 'Event Management Form'
@@ -58,6 +66,7 @@ class EventManagementTest(unittest.TestCase):
             sess['email'] = 'unit_test@domain.com'
             sess['username'] = 'unit_test'
             sess['user_id'] = user_id
+            sess['is_admin'] = True
 
         data = {"eventName": "My Event",
                 "eventDescription": "This is an event",
@@ -75,8 +84,8 @@ class EventManagementTest(unittest.TestCase):
                   f"urgency = \'{data['urgency']}\' AND event_date = date({formatted_event_date}::TEXT);"
         cursor.execute(command)
         table_data = cursor.fetchone()
-        self.assertEqual(table_data[0], user_id)     # asserts that the event was stored in the db
-        self.assertIn(str.encode("Event Details"), response.data)   # asserts that the event details page was displayed
+        self.assertEqual(table_data[0], user_id)  # asserts that the event was stored in the db
+        self.assertIn(str.encode("Event Details"), response.data)  # asserts that the event details page was displayed
         self.assertEqual(200, response.status_code)
 
         # need to remove this row from the db.
