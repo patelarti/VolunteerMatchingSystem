@@ -138,6 +138,12 @@ def assign_event():
     event_id = table_data[0]
     event_date = table_data[1]
 
+    command = f'''SELECT * from volunteer_history WHERE user_id = {user_id} AND event_id = {event_id};'''
+    cursor.execute(command)
+    table_data = cursor.fetchone()
+    if table_data:
+        return jsonify({"message": f"Event '{event_name}' HAS ALREADY BEEN assigned to volunteer '{volunteer_name}'."}), 200
+
     command = f'''INSERT INTO volunteer_history(user_id, event_id) VALUES ('{user_id}', '{event_id}');'''
     cursor.execute(command)
 
