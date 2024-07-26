@@ -1,22 +1,161 @@
-# VolunteerMatch
+# Volunteer Match
 
-VolunteerMatch is a web application designed to facilitate the matching of volunteers to events. The application includes features for user registration, profile management, event management, and volunteer history tracking.
-
-## Tech Stack
-
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Python, Flask
-- **Database**: PostgreSQL
-- **Testing**: Pytest, Coverage.py
+Volunteer Match is a web application to manage volunteers and events, built using Flask for the backend, PostgreSQL for the database, and HTML/CSS/JavaScript for the frontend.
 
 ## Features
 
-- User Registration and Login
-- User Profile Management
-- Event Creation and Management
-- Volunteer Matching to Events
-- Volunteer History Tracking
-- Notification System
+- User authentication
+- User profile management
+- Event management
+- Volunteer matching
+- Notification system
+- Volunteer history tracking
+
+## Tech Stack
+
+- Backend: Flask
+- Frontend: HTML, CSS, JavaScript
+- Database: PostgreSQL
+
+## Setup Instructions
+
+### Prerequisites
+
+- Python 3.9+
+- PostgreSQL
+
+### Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/ayyan67/VolunteerMatch.git
+    cd VolunteerMatch
+    ```
+
+2. **Create and activate a virtual environment:**
+
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate  # For Windows use `.venv\Scripts\activate`
+    ```
+
+3. **Install dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Database Setup
+
+#### For macOS
+
+1. **Install PostgreSQL:**
+
+    ```bash
+    brew install postgresql
+    ```
+
+2. **Start PostgreSQL service:**
+
+    ```bash
+    brew services start postgresql
+    ```
+
+3. **Create the database and role:**
+
+    ```bash
+    psql postgres
+    ```
+
+    ```sql
+    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'your_password';
+    CREATE DATABASE volunteers_db;
+    ```
+
+4. **Connect to the database:**
+
+    ```sql
+    \c volunteers_db
+    ```
+
+5. **Run the database script:**
+
+    ```bash
+    psql -U postgres -d volunteers_db -f path_to_your_db_script.sql
+    ```
+
+#### For Windows
+
+1. **Install PostgreSQL:**
+
+    Download and install PostgreSQL from [here](https://www.postgresql.org/download/windows/).
+
+2. **Start PostgreSQL service:**
+
+    Use the pgAdmin tool or Command Prompt to start the PostgreSQL service.
+
+3. **Create the database and role:**
+
+    Open Command Prompt and run:
+
+    ```bash
+    psql -U postgres
+    ```
+
+    ```sql
+    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'your_password';
+    CREATE DATABASE volunteers_db;
+    ```
+
+4. **Connect to the database:**
+
+    ```sql
+    \c volunteers_db
+    ```
+
+5. **Run the database script:**
+
+    ```bash
+    psql -U postgres -d volunteers_db -f path_to_your_db_script.sql
+    ```
+
+### Running the Application
+
+1. **Set the Flask app environment variable:**
+
+    ```bash
+    export FLASK_APP=run.py  # For Windows use `set FLASK_APP=run.py`
+    export FLASK_ENV=development  # For Windows use `set FLASK_ENV=development`
+    ```
+
+2. **Run the Flask application:**
+
+    ```bash
+    flask run
+    ```
+
+3. **Access the application:**
+
+    Open your browser and navigate to `http://127.0.0.1:5000`.
+
+### Testing
+
+To run the tests using pytest and generate a coverage report:
+
+1. **Install pytest and coverage:**
+
+    ```bash
+    pip install pytest coverage
+    ```
+
+2. **Run the tests and generate the coverage report:**
+
+    ```bash
+    coverage run -m pytest
+    coverage report
+    coverage html  # To generate an HTML report
+    ```
 
 ## Endpoints
 
@@ -61,57 +200,10 @@ VolunteerMatch is a web application designed to facilitate the matching of volun
 - **GET /history/api/volunteer_history**
   - Retrieve volunteer history
   - Response: `[{ volunteer_name, event_name, status, date }]`
+ 
 
-## Running the Application
+Feel free to contribute to this project by creating issues or submitting pull requests.
 
-1. **Clone the repository:**
-    ```sh
-    git clone https://github.com/ayyan67/VolunteerMatch.git
-    cd VolunteerMatch
-    ```
+### License
 
-2. **Set up the virtual environment:**
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-
-3. **Install dependencies:**
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-4. **Set up the database:**
-    ```sh
-    flask db init
-    flask db migrate
-    flask db upgrade
-    ```
-
-5. **Run the application:**
-    ```sh
-    flask run
-    ```
-
-6. **Access the application:**
-    - Open your web browser and navigate to `http://127.0.0.1:5000`
-
-## Testing
-
-To run the tests and generate a coverage report, use the following commands:
-
-1. **Run the tests:**
-    ```sh
-    pytest --cov=app tests/
-    ```
-
-2. **Generate the coverage report:**
-    ```sh
-    coverage html
-    ```
-
-The coverage report will be available in the `htmlcov` directory.
-
-## License
-
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the LICENSE file for details.
