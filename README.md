@@ -13,7 +13,7 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
 ## Tech Stack
 
-- Backend: Flask
+- Backend: Flask with Python
 - Frontend: HTML, CSS, JavaScript
 - Database: PostgreSQL
 
@@ -36,8 +36,8 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 2. **Create and activate a virtual environment:**
 
     ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate  # For Windows use `.venv\Scripts\activate`
+    python3 -m venv venv
+    source venv/bin/activate  # For Windows use `.\venv\Scripts\activate`
     ```
 
 3. **Install dependencies:**
@@ -48,7 +48,9 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
 ### Database Setup
 
-#### For macOS
+#### For macOS 
+
+###### The following instructions assume that your macOS system has homebrew installed, the instructions for which can be found [here](https://brew.sh/).
 
 1. **Install PostgreSQL:**
 
@@ -69,9 +71,10 @@ Volunteer Match is a web application to manage volunteers and events, built usin
     ```
 
     ```sql
-    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'your_password';
+    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'arti';
     CREATE DATABASE volunteers_db;
     ```
+    Note: For our application, we used the password given above.
 
 4. **Connect to the database:**
 
@@ -104,9 +107,10 @@ Volunteer Match is a web application to manage volunteers and events, built usin
     ```
 
     ```sql
-    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'your_password';
+    CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'arti';
     CREATE DATABASE volunteers_db;
     ```
+    Note: For our application, we used the password given above.
 
 4. **Connect to the database:**
 
@@ -137,7 +141,7 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
 3. **Access the application:**
 
-    Open your browser and navigate to `http://127.0.0.1:5000`.
+    Open your browser and navigate to `http://127.0.0.1:5000`. Note: The default localhost port used is 5000.
 
 ### Testing
 
@@ -202,8 +206,3 @@ To run the tests using pytest and generate a coverage report:
   - Response: `[{ volunteer_name, event_name, status, date }]`
  
 
-Feel free to contribute to this project by creating issues or submitting pull requests.
-
-### License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
