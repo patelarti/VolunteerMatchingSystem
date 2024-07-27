@@ -66,7 +66,6 @@ def logout():
 def register():
     if request.method == 'POST':
         data = request.get_json()
-        print("data==>", data)
         email = data.get('email')
         password = data.get('password')
         confirm_password = data.get('confirmPassword')
@@ -101,7 +100,6 @@ def register():
                    f"VALUES ({session['user_id']}, '{session['username']} signed up!', {True});")
         cursor.execute(command)
 
-        print(" session['user_id']==>", session['user_id'])
         cursor.close()
         conn.commit()
 

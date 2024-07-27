@@ -53,7 +53,6 @@ def profile():
             command = f'''INSERT INTO user_profile(user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability)
                         VALUES({session["user_id"]}, '{full_name}', '{address1}', '{address2}', '{city}', '{state}', '{zip_code}', '{formatted_skills}', '{preferences}', date({formatted_availability_date}::TEXT));'''
 
-        print(command)
         cursor.execute(command)
         cursor.close()
         conn.commit()
@@ -74,7 +73,6 @@ def profile():
         city, state, zipcode = table_data[4], table_data[5], table_data[6]
         skills, preferences, availability = table_data[7], table_data[8], table_data[9]
         skills = skills.split(',')
-        print("skills==>", skills)
     else:
         full_name = ""
         address1, address2 = "", ""

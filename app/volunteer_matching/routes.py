@@ -26,6 +26,10 @@ def volunteer_matching():
 
 @matching_bp.route('/api/volunteers', methods=['GET'])
 def get_volunteers():
+    global volunteers
+    if len(volunteers) > 0:
+        volunteers = []
+
     cursor = conn.cursor()
 
     command = f"SELECT * FROM user_profile;"
@@ -86,6 +90,10 @@ def get_volunteers():
 
 @matching_bp.route('/api/events', methods=['GET'])
 def get_events():
+    global events
+    if len(events) > 0:
+        events = []
+
     cursor = conn.cursor()
 
     command = f"SELECT * FROM event_details;"
@@ -126,38 +134,39 @@ def assign_event():
     data = request.get_json()
     volunteer_name = data.get('volunteer_name')
     event_name = data.get('event_name')
-    cursor = conn.cursor()
 
-    command = f'''SELECT user_id FROM user_profile WHERE full_name = '{volunteer_name}';'''
-    cursor.execute(command)
-    user_id = cursor.fetchone()[0]
+    get_volunteers()
+    get_events()
 
-    command = f'''SELECT event_id, event_date FROM event_details WHERE event_name = '{event_name}';'''
-    cursor.execute(command)
-    table_data = cursor.fetchone()
-    event_id = table_data[0]
-    event_date = table_data[1]
-
-    command = f'''SELECT * from volunteer_history WHERE user_id = {user_id} AND event_id = {event_id};'''
-    cursor.execute(command)
-    table_data = cursor.fetchone()
-    if table_data:
-        return jsonify({"message": f"Event '{event_name}' HAS ALREADY BEEN assigned to volunteer '{volunteer_name}'."}), 200
-
-    command = f'''INSERT INTO volunteer_history(user_id, event_id) VALUES ('{user_id}', '{event_id}');'''
-    cursor.execute(command)
-
-    command = (f"INSERT INTO notifications (user_id, msg, notification_type) "
-               f"VALUES ({user_id}, 'You have been assigned the event {event_name} on {event_date}', {False});")
-    cursor.execute(command)
-
-    cursor.close()
-    conn.commit()
-
-    # we will have already created Volunteer and Event objects and stored them. Simply check them here.
     for volunteer in volunteers:
         if volunteer.name == volunteer_name:
             volunteer.assigned_event = event_name
+            cursor = conn.cursor()
+            command = f'''SELECT user_id FROM user_profile WHERE full_name = '{volunteer_name}';'''
+            cursor.execute(command)
+            user_id = cursor.fetchone()[0]
+
+            command = f'''SELECT event_id, event_date FROM event_details WHERE event_name = '{event_name}';'''
+            cursor.execute(command)
+            table_data = cursor.fetchone()
+            event_id = table_data[0]
+            event_date = table_data[1]
+
+            command = f'''SELECT * from volunteer_history WHERE user_id = {user_id} AND event_id = {event_id};'''
+            cursor.execute(command)
+            table_data = cursor.fetchone()
+            if table_data:
+                return jsonify({"message": f"Event '{event_name}' HAS ALREADY BEEN assigned to volunteer '{volunteer_name}'."}), 200
+
+            command = f'''INSERT INTO volunteer_history(user_id, event_id) VALUES ('{user_id}', '{event_id}');'''
+            cursor.execute(command)
+
+            command = (f"INSERT INTO notifications (user_id, msg, notification_type) "
+                       f"VALUES ({user_id}, 'You have been assigned the event {event_name} on {event_date}', {False});")
+            cursor.execute(command)
+
+            cursor.close()
+            conn.commit()
             return jsonify({"message": f"Event '{event_name}' assigned to volunteer '{volunteer_name}'"}), 200
 
     return jsonify({"error": "Volunteer not found"}), 404

@@ -42,7 +42,6 @@ def display_event():
         formatted_required_skills += skill + ("," if i < len(required_skills) - 1 else "")
 
     formatted_event_date = "".join(str(event_date).split('-'))
-    print(formatted_event_date)
     cursor = conn.cursor()
 
     command = f'''INSERT INTO event_details(
@@ -52,13 +51,6 @@ def display_event():
     cursor.execute(command)
     cursor.close()
     conn.commit()
-
-    print(f"Event Name: {event_name}")
-    print(f"Event Description: {event_description}")
-    print(f"Event Location: {event_location}")
-    print(f"Required Skills: {required_skills}")
-    print(f"Urgency: {urgency}")
-    print(f"Event Date: {event_date}")
 
     # Pass the values to the template
     return render_template('display.html',
