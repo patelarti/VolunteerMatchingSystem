@@ -43,16 +43,6 @@ def get_volunteers():
         cursor.execute(command)
         email = cursor.fetchone()[0]
 
-        # in the same session, it adds the volunteers as many times as you refresh, hence this check.
-        exists = False
-        record_idx = -1
-        for volunteer in volunteers:
-            record_idx += 1
-            # volunteer below is a new object hence "if volunteer in volunteers" isn't working.
-            if volunteer.to_dict()['email'] == email:
-                exists = True
-                break
-
         # Fetch volunteer's history.
         command = f"SELECT event_id FROM volunteer_history WHERE user_id = {row[0]};"
         cursor.execute(command)
@@ -78,11 +68,8 @@ def get_volunteers():
             phone="(123)-456-7890",
             history=history
         )
-        if exists:
-            # the history may have been updated, hence the need to replace
-            volunteers[record_idx] = volunteer
-        else:
-            volunteers.append(volunteer)
+        volunteers.append(volunteer)
+
     cursor.close()
 
     return jsonify([volunteer.to_dict() for volunteer in volunteers])
@@ -104,16 +91,6 @@ def get_events():
 
     # create Event objects and store in event list
     for row in table_data:
-        # in the same session, it adds the events as many times as you refresh, hence this check.
-        exists = False
-        for event in events:
-            if event.to_dict()['id'] == row[0]:
-                exists = True
-                break
-
-        if exists:
-            continue
-
         formatted_required_skills = row[4].split(",")
         event = Event(
             name=row[1],

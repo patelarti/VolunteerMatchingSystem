@@ -260,60 +260,6 @@ class VolunteerMatchingTest(unittest.TestCase):
         val = '{"error":"Volunteer not found"}\n'
         self.assertEqual(str.encode(val), response.data)
 
-    # def test_assign_two_events_to_a_user_in_sequence(self):
-    #     self.create_unit_test_user_in_db()
-    #     self.create_unit_test_user_profile_in_db()
-    #     self.create_sample_event_in_db('Unit Test Event')
-    #     self.create_sample_event_in_db('Unit Test Event 2')
-    #
-    #     with self.tester.session_transaction() as sess:
-    #         sess['signed_in'] = True
-    #         sess['email'] = 'unit_test@domain.com'
-    #         sess['username'] = 'unit_test'
-    #         sess['user_id'] = self.user_id
-    #         sess['is_admin'] = True
-    #
-    #     data = {
-    #         "volunteer_name": "Unit Test",
-    #         "event_name": "Unit Test Event"
-    #     }
-    #     response = self.tester.post('/matching/api/assign_event', json=data)
-    #
-    #     val = '{"message":"Event \'Unit Test Event\' assigned to volunteer \'Unit Test\'"}\n'
-    #     self.assertEqual(str.encode(val), response.data)
-    #     self.assertEqual(200, response.status_code)
-    #
-    #     data = {
-    #         "volunteer_name": "Unit Test",
-    #         "event_name": "Unit Test Event 2"
-    #     }
-    #     response = self.tester.post('/matching/api/assign_event', json=data)
-    #
-    #     val = '{"message":"Event \'Unit Test Event 2\' assigned to volunteer \'Unit Test\'"}\n'
-    #     self.assertEqual(str.encode(val), response.data)
-    #     self.assertEqual(200, response.status_code)
-    #
-    #     conn = psycopg2.connect(database="volunteers_db", user="postgres",
-    #                             password="arti", host="localhost", port="5432")
-    #     cursor = conn.cursor()
-    #
-    #     # delete from history
-    #     command = f"DELETE FROM volunteer_history WHERE user_id = {self.user_id};"
-    #     cursor.execute(command)
-    #
-    #     # delete the notification
-    #     command = (f"DELETE FROM notifications "
-    #                f"WHERE user_id = {self.user_id};")
-    #     cursor.execute(command)
-    #     conn.commit()
-    #     cursor.close()
-    #     conn.close()
-    #
-    #     self.delete_sample_event_in_db('Unit Test Event')
-    #     self.delete_sample_event_in_db('Unit Test Event 2')
-    #     self.delete_unit_test_user_profile_in_db()
-    #     self.delete_unit_test_user_in_db()
-
 
 if __name__ == "__main__":
     unittest.main()
