@@ -5,7 +5,7 @@
 -- Dumped from database version 16.3
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-07-24 19:54:42
+-- Started on 2024-07-26 20:59:34
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -171,8 +171,8 @@ ALTER TABLE public.volunteer_history ALTER COLUMN history_id ADD GENERATED ALWAY
 --
 
 COPY public.event_details (event_id, event_name, description, location, required_skills, urgency, event_date, user_id) FROM stdin;
-2	abc	description	new york	Event Planning,Public Speaking,Organization,Customer Service,	High	2024-07-30	4
-3	test 7-24 event	test description	test location	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Public Speaking,Organization,Customer Service,Lifting,Patience,Communication,Mentoring,Conflict Resolution,Creativity,Customer Service,	High	2024-07-31	4
+48	Hiking @bayou park	Hiking at Bayou Park with dogs	2950 Riverby Rd, Houston, TX 77020	Environmental Awareness,Physical Fitness,Teamwork	Medium	2024-08-04	178
+49	Community Clean-Up Drive @UH, Main Campus	Community Clean-Up Drive at the University of Houston, Main Campus to spread awareness about cleanliness.	University of Houston, Main Campus, Houston, Tx	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Organization	High	2024-08-05	178
 \.
 
 
@@ -183,13 +183,12 @@ COPY public.event_details (event_id, event_name, description, location, required
 --
 
 COPY public.notifications (user_id, msg, notification_type) FROM stdin;
-17	test_notif signed up!	t
-17	You have been assigned the event abc on 2024-07-30	f
-17	You have been assigned the event test 7-24 event on 2024-07-31	f
-4	You have been assigned the event abc on 2024-07-30	f
-4	You have been assigned the event test 7-24 event on 2024-07-31	f
-17	You have been assigned the event abc on 2024-07-30	f
-18	ashutosh signed up!	t
+178	patelarti91 signed up!	t
+179	john.doe signed up!	t
+180	jane.smith signed up!	t
+181	michael.brown signed up!	t
+180	You have been assigned the event Hiking @bayou park on 2024-08-04	f
+181	You have been assigned the event Hiking @bayou park on 2024-08-04	f
 \.
 
 
@@ -200,9 +199,10 @@ COPY public.notifications (user_id, msg, notification_type) FROM stdin;
 --
 
 COPY public.user_profile (user_id, full_name, address_1, address_2, city, state, zipcode, skills, preference, availability) FROM stdin;
-4	Arti Patel	new address		houston	TX	77007	Environmental Awareness,Public Speaking		2024-07-17
-17	test	3515 Hughes Ln		Dickinson	TX	77539	Environmental Awareness,Physical Fitness,Teamwork		2024-07-26
-18	Ashutosh Kumar	1234 Sadak Rd	Mohalla Nagar	Sheherpuri	TX	77007	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Public Speaking,Organization,Customer Service,Lifting,Patience,Communication,Mentoring,Conflict Resolution,Creativity,Customer Service	No holds bar	2024-07-24
+180	 Jane Smith	Houston		Dickinson	TX	77539	Environmental Awareness,Physical Fitness,Teamwork,Event Planning		2024-07-30
+181	Michael Brown	3515 Hughes Ln		Dickinson	TX	77539	Mentoring,Conflict Resolution,Creativity,Customer Service		2024-08-25
+178	Arti N Patel	brickstone villa	1606 82nd St	 Lubbock	TX	79423	Environmental Awareness,Physical Fitness,Teamwork,Event Planning,Public Speaking,Organization,Customer Service,Lifting,Patience,Communication,Mentoring,Conflict Resolution,Creativity,Customer Service		2024-07-26
+179	John Doe	3515 Hughes Ln		Dickinson	TX	77539	Mentoring,Conflict Resolution,Creativity		2024-07-30
 \.
 
 
@@ -213,19 +213,10 @@ COPY public.user_profile (user_id, full_name, address_1, address_2, city, state,
 --
 
 COPY public.usercredentials (id, username, email, password, is_admin) FROM stdin;
-2	abc123	abc123@gmail.com	$2b$12$lRv1LqiFOK7jsB58ePZWWuJKxvm1EAAFzbaushiyESMzsRsp/WFBa	f
-3	test_abc	test_abc@gmail.com	$2b$12$45KIN4R9wI4UQ82GFHI2f.wpENZOUMmJ6.6W8t4eRf4fCiUylaTQu	f
-4	patelarti91	patelarti91@gmail.com	$2b$12$lVZxk9ehVn6nBPzzwbusm.6KFYm1xIJJ7IcTpau0ZMex9GyNXoLtu	f
-5	patelarti92	patelarti92@gmail.com	$2b$12$sDCCbUzOgeiSreFhy4aU5eLqAbIWl78jyUXB/rHxhVPqVPm8t2m5u	f
-6	patelarti93	patelarti93@gmail.com	$2b$12$1lidYbDmrB8ZtSffvvUGAukw8bCdbPOfiNWEe4/bzKm5DKnrhE97.	f
-7	random	random@gmail.com	$2b$12$F6Oi2RSwD8D8V8wvKCke1eiqGPlA10bV/sLHfr25EF9bqs/3Ds/jW	f
-8	random1	random1@gmail.com	$2b$12$NIBEKYmAZCZz.t6r3.9SLumElFQ8peD1TM8injNMScwIpqk8nsWeu	f
-9	random2	random2@gmail.com	$2b$12$DtD2B7.fsh6vqexnvcUfFu4Nr2x8hfQ.xCYntwk9Kv0UfUl2TlFDq	f
-10	random8	random8@gmail.com	$2b$12$hYshgxGBZE9.1GiEzHszA.eUxoR/qreVuW1Y/4nsi3RxE2iufiWcC	f
-11	random9	random9@gmail.com	$2b$12$cgbzJS1dV0umHH3qnobo3uT.L2JW2n2MNtt3RJyLKeEfysETSqmfS	f
-12	random10	random10@gmail.com	$2b$12$LpdqMrwwcGZ7SVSkquUvWOtLvGayHRYvZliyKqXkooPrUT5gff9w6	t
-17	test_notif	test_notif@gmail.com	$2b$12$AL2pSaNGvtzvyVpcQkO4M.OyeJ5JAPU9PoqgYe1GcWwjlDHQAtFvK	f
-18	ashutosh	ashutosh@example.com	$2b$12$vlnBMzBF9fC9ZZw49UOdvukUUQP4qCX/OImUfhCXQvLp.ydhMWPJG	t
+178	patelarti91	patelarti91@gmail.com	$2b$12$w6INyeeZKzH7T0OvBmux0OEhSYWhvrrcoESqN8vTTpJNrMLyLT4Ta	t
+179	john.doe	john.doe@example.com	$2b$12$txUn2dAc19aFZjAOTj2SGuYi0Va5v5OXsqpHcv/JOHa.ZLi00C6h2	f
+180	jane.smith	jane.smith@example.com	$2b$12$/BPFhrT9r4s/BriN4Se9MeUFvlswVd5s9NB/Ti1vZE2KGrGMwMqVa	f
+181	michael.brown	michael.brown@example.com	$2b$12$SKhbqINuLnpdRq5ps2qV0ufePrbyjvfLxuu16eNMNExPgl8VZJC26	f
 \.
 
 
@@ -236,13 +227,8 @@ COPY public.usercredentials (id, username, email, password, is_admin) FROM stdin
 --
 
 COPY public.volunteer_history (history_id, user_id, event_id) FROM stdin;
-1	4	2
-2	4	3
-3	17	2
-4	17	3
-5	4	2
-6	4	3
-7	17	2
+44	180	48
+45	181	48
 \.
 
 
@@ -252,7 +238,7 @@ COPY public.volunteer_history (history_id, user_id, event_id) FROM stdin;
 -- Name: event_details_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.event_details_event_id_seq', 7, true);
+SELECT pg_catalog.setval('public.event_details_event_id_seq', 49, true);
 
 
 --
@@ -261,7 +247,7 @@ SELECT pg_catalog.setval('public.event_details_event_id_seq', 7, true);
 -- Name: usercredentials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usercredentials_id_seq', 18, true);
+SELECT pg_catalog.setval('public.usercredentials_id_seq', 181, true);
 
 
 --
@@ -270,7 +256,7 @@ SELECT pg_catalog.setval('public.usercredentials_id_seq', 18, true);
 -- Name: volunteer_history_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.volunteer_history_history_id_seq', 7, true);
+SELECT pg_catalog.setval('public.volunteer_history_history_id_seq', 45, true);
 
 
 --
@@ -345,7 +331,7 @@ ALTER TABLE ONLY public.notifications
     ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.usercredentials(id);
 
 
--- Completed on 2024-07-24 19:54:42
+-- Completed on 2024-07-26 20:59:34
 
 --
 -- PostgreSQL database dump complete
