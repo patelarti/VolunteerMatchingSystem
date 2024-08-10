@@ -1,6 +1,32 @@
 # Volunteer Match
+Volunteer Match is a comprehensive web application designed to manage volunteers and events efficiently. Built using Flask for the backend, PostgreSQL for the database, and HTML/CSS/JavaScript for the frontend, Volunteer Match offers robust features to streamline volunteer management.
 
-Volunteer Match is a web application to manage volunteers and events, built using Flask for the backend, PostgreSQL for the database, and HTML/CSS/JavaScript for the frontend.
+
+<div align="center">
+  <img src="figure_login_page.png" alt="Login Page" width="490" height="300"/>
+  <img src="figure_pages_overview.png" alt="Pages Overview" width="490" height="300"/>
+</div>
+
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup Instructions](#setup-instructions)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Database Setup](#database-setup)
+    - [For macOS](#for-macos)
+    - [For Windows](#for-windows)
+- [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [Endpoints](#endpoints)
+  - [User Authentication](#user-authentication)
+  - [User Profile](#user-profile)
+  - [Event Management](#event-management)
+  - [Volunteer Management](#volunteer-management)
+  - [Volunteer History](#volunteer-history)
+- [Images](#images)
 
 ## Features
 
@@ -13,9 +39,9 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
 ## Tech Stack
 
-- Backend: Flask with Python
-- Frontend: HTML, CSS, JavaScript
-- Database: PostgreSQL
+- **Backend:** Flask with Python
+- **Frontend:** HTML, CSS, JavaScript
+- **Database:** PostgreSQL
 
 ## Setup Instructions
 
@@ -48,9 +74,9 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
 ### Database Setup
 
-#### For macOS 
+#### For macOS
 
-###### The following instructions assume that your macOS system has homebrew installed, the instructions for which can be found [here](https://brew.sh/).
+##### The following instructions assume that your macOS system has homebrew installed, the instructions for which can be found [here](https://brew.sh/).
 
 1. **Install PostgreSQL:**
 
@@ -124,7 +150,7 @@ Volunteer Match is a web application to manage volunteers and events, built usin
     psql -U postgres -d volunteers_db -f path_to_your_db_script.sql
     ```
 
-### Running the Application
+## Running the Application
 
 1. **Set the Flask app environment variable:**
 
@@ -143,7 +169,7 @@ Volunteer Match is a web application to manage volunteers and events, built usin
 
     Open your browser and navigate to `http://127.0.0.1:5000`. Note: The default localhost port used is 5000.
 
-### Testing
+## Testing
 
 To run the tests using pytest and generate a coverage report:
 
@@ -204,5 +230,5 @@ To run the tests using pytest and generate a coverage report:
 - **GET /history/api/volunteer_history**
   - Retrieve volunteer history
   - Response: `[{ volunteer_name, event_name, status, date }]`
- 
 
+Thank you for using Volunteer Match! If you have any questions or encounter any issues, please refer to our documentation or contact support.
